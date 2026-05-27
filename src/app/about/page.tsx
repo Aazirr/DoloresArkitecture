@@ -9,7 +9,7 @@ import { ArrowRight } from "lucide-react";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Dolores Arkitecture is an architecture and interior design studio based in Cebu, Philippines. We design residential, commercial, and institutional spaces with care for craft and context.",
+    "Dolores Arkitecture is an architecture and interior design studio based in Cebu, Philippines. Founded in 2013 by John Kenneth Dolores, we design residential, commercial, and institutional spaces with care for craft and context.",
 };
 
 const VALUES = [
@@ -24,6 +24,29 @@ const VALUES = [
   {
     heading: "Crafted",
     body: "The details matter. We believe architecture is made or unmade at the junction between two materials, in the proportion of a window, in the sequence of rooms.",
+  },
+];
+
+const TEAM = [
+  {
+    name: "John Kenneth Dolores",
+    title: "Principal Architect",
+    initial: "JK",
+  },
+  {
+    name: "Peter Leslie Salva",
+    title: "Jr. Architect",
+    initial: "PL",
+  },
+  {
+    name: "Lemuel Roque",
+    title: "Jr. Architect",
+    initial: "LR",
+  },
+  {
+    name: "Hannah Mae Vito",
+    title: "Architectural Apprentice",
+    initial: "HM",
   },
 ];
 
@@ -43,8 +66,9 @@ export default function AboutPage() {
           </h1>
           <p className="mt-8 max-w-xl text-base leading-relaxed text-[#9e9b97]">
             D.ARK+ (Dolores Arkitecture) is an architecture and interior design
-            studio based in Cebu, Philippines. We design spaces that are rooted
-            in place, built with care, and shaped around the people who use them.
+            studio based in Cebu, Philippines. Founded in 2013, we design spaces
+            that are rooted in place, built with care, and shaped around the
+            people who use them.
           </p>
         </Container>
       </section>
@@ -59,19 +83,21 @@ export default function AboutPage() {
             <h2 className="text-3xl font-extralight tracking-tight text-[#f0ede8]">
               Born from a love of making
             </h2>
+            <p className="mt-4 text-sm text-[#5e5c59]">Est. 2013 · Cebu, Philippines</p>
           </div>
           <div className="space-y-5 text-[#9e9b97]">
             <p className="text-base leading-relaxed">
-              The studio was founded with a simple conviction: that the built
-              environment shapes how we feel, how we connect, and how we move
-              through the world. Architecture done well is invisible — it simply
-              enables life to unfold.
+              Founded by Principal Architect John Kenneth Dolores in 2013, the
+              studio was built on a simple conviction: that the built environment
+              shapes how we feel, how we connect, and how we move through the
+              world. Architecture done well is invisible — it simply enables life
+              to unfold.
             </p>
             <p className="text-base leading-relaxed">
-              Based in Cebu, we work across residential, commercial, and
-              institutional projects throughout the Philippines. Our team is
-              small by design — it lets us stay closely involved in every
-              project, from the first sketch to the last site visit.
+              Based in Kamputhaw, Cebu City, we work across residential,
+              commercial, and institutional projects throughout the Philippines.
+              Our team is small by design — it lets us stay closely involved in
+              every project, from the first sketch to the last site visit.
             </p>
             <p className="text-base leading-relaxed">
               We believe that good work comes from honest relationships. We ask
@@ -81,12 +107,13 @@ export default function AboutPage() {
             <div className="pt-4">
               <Image
                 src="/brand/signature.png"
-                alt="D.ARK+ signature"
+                alt="John Kenneth Dolores signature"
                 width={160}
                 height={64}
                 className="opacity-60"
                 draggable={false}
               />
+              <p className="mt-2 text-xs text-[#5e5c59]">John Kenneth Dolores · Principal Architect</p>
             </div>
           </div>
         </div>
@@ -111,7 +138,7 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      {/* Team placeholder */}
+      {/* Team */}
       <Section className="border-t border-white/[0.06] bg-[#161616]">
         <div className="mb-12">
           <Badge variant="accent" className="mb-4">
@@ -121,26 +148,20 @@ export default function AboutPage() {
             The people behind the work
           </h2>
         </div>
-        <div className="grid gap-px bg-white/[0.06] sm:grid-cols-2 lg:grid-cols-3">
-          {/* Placeholder card — replace with real bios */}
-          {Array.from({ length: 3 }).map((_, i) => (
-            <div key={i} className="flex flex-col gap-4 bg-[#161616] p-8">
-              <div className="h-24 w-24 rounded-full bg-[#2a2a2a]" />
-              <div className="space-y-1">
-                <div className="h-4 w-32 rounded bg-[#2a2a2a]" />
-                <div className="h-3 w-24 rounded bg-[#1f1f1f]" />
+        <div className="grid gap-px bg-white/[0.06] sm:grid-cols-2 lg:grid-cols-4">
+          {TEAM.map(({ name, title, initial }) => (
+            <div key={name} className="flex flex-col gap-5 bg-[#161616] p-8">
+              {/* Avatar placeholder — replace src with real photo when available */}
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#2a2a2a] text-sm font-light tracking-wide text-[#c8a96e]">
+                {initial}
               </div>
-              <div className="space-y-2">
-                <div className="h-3 w-full rounded bg-[#1f1f1f]" />
-                <div className="h-3 w-4/5 rounded bg-[#1f1f1f]" />
-                <div className="h-3 w-3/5 rounded bg-[#1f1f1f]" />
+              <div>
+                <p className="text-sm font-medium text-[#f0ede8]">{name}</p>
+                <p className="mt-1 text-xs text-[#5e5c59]">{title}</p>
               </div>
             </div>
           ))}
         </div>
-        <p className="mt-6 text-sm text-[#5e5c59]">
-          Team bios coming soon.
-        </p>
       </Section>
 
       {/* CTA */}

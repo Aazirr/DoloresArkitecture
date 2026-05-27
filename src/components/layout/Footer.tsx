@@ -41,11 +41,13 @@ export default function Footer() {
               draggable={false}
             />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-[#5e5c59]">
-              Architecture studio crafting thoughtful spaces in Cebu, Philippines.
+              Architecture studio crafting thoughtful spaces in Cebu, Philippines. Est. 2013.
             </p>
-            <p className="mt-5 text-sm text-[#5e5c59]">
-              hello@doloresarkitecture.com
-            </p>
+            <div className="mt-5 space-y-1">
+              <p className="text-sm text-[#5e5c59]">info@darkplus.studio</p>
+              <p className="text-sm text-[#5e5c59]">+63 32 252 9127</p>
+              <p className="text-sm text-[#5e5c59]">Kamputhaw, Cebu City</p>
+            </div>
           </div>
 
           {/* Nav columns */}
