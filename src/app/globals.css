@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+/* ─── D.ARK+ Design Tokens ─────────────────────────────────────────────────── */
+
+:root {
+  /* Backgrounds */
+  --color-bg:          #0d0d0d;
+  --color-bg-subtle:   #161616;
+  --color-bg-surface:  #1f1f1f;
+  --color-bg-elevated: #2a2a2a;
+
+  /* Text */
+  --color-text:        #f0ede8;
+  --color-text-muted:  #9e9b97;
+  --color-text-subtle: #5e5c59;
+
+  /* Brand accent — warm architectural amber */
+  --color-accent:       #c8a96e;
+  --color-accent-dim:   #8a7249;
+  --color-accent-glow:  rgba(200, 169, 110, 0.15);
+
+  /* Borders */
+  --color-border:       rgba(240, 237, 232, 0.08);
+  --color-border-strong: rgba(240, 237, 232, 0.18);
+
+  /* Spacing scale base */
+  --section-py: 6rem;
+
+  /* Typography */
+  --font-sans:    var(--font-geist-sans), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-geist-sans), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    var(--font-geist-mono), ui-monospace, monospace;
+}
+
+/* ─── Tailwind v4 theme registration ───────────────────────────────────────── */
+
+@theme inline {
+  --color-background: var(--color-bg);
+  --color-foreground: var(--color-text);
+
+  --color-dark:         #0d0d0d;
+  --color-dark-subtle:  #161616;
+  --color-surface:      #1f1f1f;
+  --color-elevated:     #2a2a2a;
+
+  --color-text-base:    #f0ede8;
+  --color-muted:        #9e9b97;
+  --color-subtle:       #5e5c59;
+
+  --color-accent:       #c8a96e;
+  --color-accent-dim:   #8a7249;
+
+  --color-border:       rgba(240, 237, 232, 0.08);
+
+  --font-sans:    var(--font-sans);
+  --font-display: var(--font-display);
+  --font-mono:    var(--font-mono);
+}
+
+/* ─── Base styles ───────────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  min-height: 100dvh;
+}
+
+/* ─── Selection ─────────────────────────────────────────────────────────────── */
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* ─── Focus ring ─────────────────────────────────────────────────────────────── */
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
