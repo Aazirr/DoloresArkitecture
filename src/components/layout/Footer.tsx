@@ -35,7 +35,7 @@ export default function Footer() {
           <div className="col-span-2 md:col-span-2">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/brand/d.ark-wordmark.svg"
+              src="/brand/d.ark-wordmark2.svg"
               alt="D.ARK+ Dolores Arkitecture"
               className="h-8 w-auto"
               draggable={false}

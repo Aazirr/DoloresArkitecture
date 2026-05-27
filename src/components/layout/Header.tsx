@@ -29,7 +29,7 @@ export default function Header() {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/brand/d.ark-wordmark.svg"
+            src="/brand/d.ark-wordmark2.svg"
             alt="D.ARK+"
             className="h-7 w-auto"
             draggable={false}
