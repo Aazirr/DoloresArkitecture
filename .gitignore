@@ -1,0 +1,43 @@
+# Dependencies
+/node_modules
+.pnp
+.pnp.*
+.yarn/*
+
+# Next.js
+/.next/
+/out/
+/build
+
+# Velite generated content
+/.velite
+
+# Production
+/dist
+
+# Misc
+.DS_Store
+*.pem
+Thumbs.db
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Env files (secrets)
+.env
+.env*.local
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Editor
+.idea/
+.vscode/*
+!.vscode/extensions.json
