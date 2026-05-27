@@ -1,5 +1,6 @@
 import { ButtonLink } from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
+import { Reveal } from "@/components/ui/Reveal";
 import { ArrowRight } from "lucide-react";
 
 export default function CTABanner() {
@@ -25,17 +26,23 @@ export default function CTABanner() {
       />
 
       <Container className="relative z-10 flex flex-col items-center text-center">
-        <p className="mb-4 text-xs font-medium uppercase tracking-[0.35em] text-[#c8a96e]">
-          Get in touch
-        </p>
-        <h2 className="max-w-xl text-3xl font-extralight tracking-tight text-[#f0ede8] sm:text-4xl">
-          Have a project in mind?
-        </h2>
-        <p className="mt-5 max-w-md text-base leading-relaxed text-[#9e9b97]">
-          We'd love to hear about what you're building. Share your brief and
-          let's start a conversation.
-        </p>
-        <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
+        <Reveal>
+          <p className="mb-4 text-xs font-medium uppercase tracking-[0.35em] text-[#c8a96e]">
+            Get in touch
+          </p>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <h2 className="max-w-xl text-3xl font-extralight tracking-tight text-[#f0ede8] sm:text-4xl">
+            Have a project in mind?
+          </h2>
+        </Reveal>
+        <Reveal delay={0.2}>
+          <p className="mt-5 max-w-md text-base leading-relaxed text-[#9e9b97]">
+            We'd love to hear about what you're building. Share your brief and
+            let's start a conversation.
+          </p>
+        </Reveal>
+        <Reveal delay={0.3} className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
           <ButtonLink href="/contact" variant="primary" size="lg">
             Start a project
             <ArrowRight className="ml-2 h-4 w-4" />
@@ -43,7 +50,7 @@ export default function CTABanner() {
           <ButtonLink href="/projects" variant="ghost" size="lg">
             Explore our work
           </ButtonLink>
-        </div>
+        </Reveal>
       </Container>
     </section>
   );

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Home, Building2, Sofa, ArrowUpRight } from "lucide-react";
 import Section from "@/components/ui/Section";
 import Badge from "@/components/ui/Badge";
+import { Reveal } from "@/components/ui/Reveal";
 import { getAllServices } from "@/lib/content";
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -15,16 +16,16 @@ export default function ServicesOverview() {
 
   return (
     <Section className="border-t border-white/[0.06] bg-[#0d0d0d]">
-      <div className="mb-12">
+      <Reveal className="mb-12">
         <Badge variant="accent" className="mb-3">
           What we do
         </Badge>
         <h2 className="text-3xl font-extralight tracking-tight text-[#f0ede8] sm:text-4xl">
           Our services
         </h2>
-      </div>
+      </Reveal>
 
-      <div className="grid gap-px bg-white/[0.06] sm:grid-cols-2 lg:grid-cols-3">
+      <Reveal className="grid gap-px bg-white/[0.06] sm:grid-cols-2 lg:grid-cols-3">
         {services.map((service) => {
           const Icon = ICON_MAP[service.icon] ?? Home;
           return (
@@ -51,7 +52,7 @@ export default function ServicesOverview() {
             </Link>
           );
         })}
-      </div>
+      </Reveal>
     </Section>
   );
 }

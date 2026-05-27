@@ -3,13 +3,14 @@ import { ArrowRight } from "lucide-react";
 import Section from "@/components/ui/Section";
 import Badge from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
+import { Reveal, StaggerGroup, StaggerItem } from "@/components/ui/Reveal";
 import { getFeaturedProjects } from "@/lib/content";
 
 function ProjectCard({ project }: { project: ReturnType<typeof getFeaturedProjects>[number] }) {
   return (
     <Link
       href={project.permalink}
-      className="group relative flex flex-col overflow-hidden rounded-xl border border-white/[0.06] bg-[#161616] transition-colors hover:border-white/[0.12]"
+      className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-white/[0.06] bg-[#161616] transition-colors hover:border-white/[0.12]"
     >
       {/* Image placeholder — replaced with next/image once real photos are provided */}
       <div className="relative aspect-[4/3] overflow-hidden bg-[#1f1f1f]">
@@ -52,7 +53,7 @@ export default function FeaturedProjects() {
 
   return (
     <Section className="bg-[#0d0d0d]">
-      <div className="flex items-end justify-between">
+      <Reveal className="flex items-end justify-between">
         <div>
           <Badge variant="accent" className="mb-3">
             Selected Work
@@ -65,13 +66,15 @@ export default function FeaturedProjects() {
           All projects
           <ArrowRight className="ml-1 h-3.5 w-3.5" />
         </ButtonLink>
-      </div>
+      </Reveal>
 
-      <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <StaggerGroup className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
+          <StaggerItem key={project.slug} className="h-full">
+            <ProjectCard project={project} />
+          </StaggerItem>
         ))}
-      </div>
+      </StaggerGroup>
 
       <div className="mt-8 sm:hidden">
         <ButtonLink href="/projects" variant="secondary" size="md" className="w-full">
