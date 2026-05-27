@@ -39,6 +39,7 @@ const projects = defineCollection({
       client: s.string().optional(),
       area: s.string().optional(),
       services: s.array(s.string()).default([]),
+      content: s.mdx(),
       ...seoFields,
     })
     .transform((data) => ({
@@ -60,6 +61,7 @@ const services = defineCollection({
       order: s.number().int().default(99),
       summary: s.string(),
       coverImage: s.string(),
+      content: s.mdx(),
       ...seoFields,
     })
     .transform((data) => ({
@@ -83,6 +85,7 @@ const blog = defineCollection({
       coverImage: s.string(),
       tags: s.array(s.string()).default([]),
       draft: s.boolean().default(false),
+      content: s.mdx(),
       ...seoFields,
     })
     .transform((data) => ({

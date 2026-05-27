@@ -1,0 +1,153 @@
+import type { Metadata } from "next";
+import Container from "@/components/ui/Container";
+import Badge from "@/components/ui/Badge";
+import Section from "@/components/ui/Section";
+import { ButtonLink } from "@/components/ui/Button";
+import { ArrowRight } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "Dolores Arkitecture is an architecture and interior design studio based in Cebu, Philippines. We design residential, commercial, and institutional spaces with care for craft and context.",
+};
+
+const VALUES = [
+  {
+    heading: "Contextual",
+    body: "Every building we design responds to its specific place — the climate, the culture, the landscape, the street. We don't bring a house style to every project; we bring a process.",
+  },
+  {
+    heading: "Considered",
+    body: "Good architecture emerges from deep listening. We spend as much time understanding how our clients live, work, and move through space as we spend drawing.",
+  },
+  {
+    heading: "Crafted",
+    body: "The details matter. We believe architecture is made or unmade at the junction between two materials, in the proportion of a window, in the sequence of rooms.",
+  },
+];
+
+export default function AboutPage() {
+  return (
+    <>
+      {/* Hero */}
+      <section className="border-b border-white/[0.06] pb-24 pt-32">
+        <Container>
+          <Badge variant="accent" className="mb-6">
+            About the studio
+          </Badge>
+          <h1 className="max-w-2xl text-5xl font-extralight leading-[1.1] tracking-tight text-[#f0ede8] sm:text-6xl">
+            Architecture shaped
+            <br />
+            <span className="italic text-[#c8a96e]">by intention.</span>
+          </h1>
+          <p className="mt-8 max-w-xl text-base leading-relaxed text-[#9e9b97]">
+            D.ARK+ (Dolores Arkitecture) is an architecture and interior design
+            studio based in Cebu, Philippines. We design spaces that are rooted
+            in place, built with care, and shaped around the people who use them.
+          </p>
+        </Container>
+      </section>
+
+      {/* Studio story */}
+      <Section className="bg-[#0d0d0d]">
+        <div className="grid gap-16 lg:grid-cols-2 lg:gap-24">
+          <div>
+            <Badge variant="accent" className="mb-4">
+              Our story
+            </Badge>
+            <h2 className="text-3xl font-extralight tracking-tight text-[#f0ede8]">
+              Born from a love of making
+            </h2>
+          </div>
+          <div className="space-y-5 text-[#9e9b97]">
+            <p className="text-base leading-relaxed">
+              The studio was founded with a simple conviction: that the built
+              environment shapes how we feel, how we connect, and how we move
+              through the world. Architecture done well is invisible — it simply
+              enables life to unfold.
+            </p>
+            <p className="text-base leading-relaxed">
+              Based in Cebu, we work across residential, commercial, and
+              institutional projects throughout the Philippines. Our team is
+              small by design — it lets us stay closely involved in every
+              project, from the first sketch to the last site visit.
+            </p>
+            <p className="text-base leading-relaxed">
+              We believe that good work comes from honest relationships. We ask
+              a lot of questions, we share our thinking openly, and we stay
+              involved through construction.
+            </p>
+          </div>
+        </div>
+      </Section>
+
+      {/* Values */}
+      <section className="border-t border-white/[0.06] py-24">
+        <Container>
+          <Badge variant="accent" className="mb-12">
+            How we work
+          </Badge>
+          <div className="grid gap-px bg-white/[0.06] sm:grid-cols-3">
+            {VALUES.map(({ heading, body }) => (
+              <div key={heading} className="bg-[#0d0d0d] p-8">
+                <h3 className="mb-3 text-lg font-light text-[#c8a96e]">
+                  {heading}
+                </h3>
+                <p className="text-sm leading-relaxed text-[#9e9b97]">{body}</p>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Team placeholder */}
+      <Section className="border-t border-white/[0.06] bg-[#161616]">
+        <div className="mb-12">
+          <Badge variant="accent" className="mb-4">
+            The team
+          </Badge>
+          <h2 className="text-3xl font-extralight tracking-tight text-[#f0ede8]">
+            The people behind the work
+          </h2>
+        </div>
+        <div className="grid gap-px bg-white/[0.06] sm:grid-cols-2 lg:grid-cols-3">
+          {/* Placeholder card — replace with real bios */}
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="flex flex-col gap-4 bg-[#161616] p-8">
+              <div className="h-24 w-24 rounded-full bg-[#2a2a2a]" />
+              <div className="space-y-1">
+                <div className="h-4 w-32 rounded bg-[#2a2a2a]" />
+                <div className="h-3 w-24 rounded bg-[#1f1f1f]" />
+              </div>
+              <div className="space-y-2">
+                <div className="h-3 w-full rounded bg-[#1f1f1f]" />
+                <div className="h-3 w-4/5 rounded bg-[#1f1f1f]" />
+                <div className="h-3 w-3/5 rounded bg-[#1f1f1f]" />
+              </div>
+            </div>
+          ))}
+        </div>
+        <p className="mt-6 text-sm text-[#5e5c59]">
+          Team bios coming soon.
+        </p>
+      </Section>
+
+      {/* CTA */}
+      <section className="border-t border-white/[0.06] py-24">
+        <Container className="flex flex-col items-center text-center">
+          <h2 className="text-3xl font-extralight tracking-tight text-[#f0ede8]">
+            Work with us
+          </h2>
+          <p className="mt-4 max-w-md text-base leading-relaxed text-[#9e9b97]">
+            We take on a small number of projects each year to ensure every
+            client receives our full attention.
+          </p>
+          <ButtonLink href="/contact" variant="primary" size="lg" className="mt-8">
+            Get in touch
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </ButtonLink>
+        </Container>
+      </section>
+    </>
+  );
+}
