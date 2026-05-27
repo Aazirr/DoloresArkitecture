@@ -31,7 +31,7 @@ export default function Header() {
           <img
             src="/brand/d.ark-wordmark2.svg"
             alt="D.ARK+"
-            className="h-7 w-auto"
+            className="h-7 w-auto brightness-0 invert"
             draggable={false}
           />
         </Link>
