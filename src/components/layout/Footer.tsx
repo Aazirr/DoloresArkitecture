@@ -18,19 +18,32 @@ const LINKS = {
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/[0.06] bg-[#161616]">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <footer className="relative overflow-hidden border-t border-white/[0.06] bg-[#161616]">
+      {/* Brand motif curves — bottom-right decorative */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/brand/brand-motif-curves.svg"
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-16 -right-16 h-72 w-auto select-none opacity-[0.07]"
+        draggable={false}
+      />
+
+      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           {/* Brand */}
           <div className="col-span-2 md:col-span-2">
-            <p className="text-lg font-semibold tracking-[0.2em] text-[#f0ede8]">
-              D.ARK+
-            </p>
-            <p className="mt-2 text-sm text-[#9e9b97]">Dolores Arkitecture</p>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/brand/d.ark-wordmark.svg"
+              alt="D.ARK+ Dolores Arkitecture"
+              className="h-8 w-auto"
+              draggable={false}
+            />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-[#5e5c59]">
               Architecture studio crafting thoughtful spaces in Cebu, Philippines.
             </p>
-            <p className="mt-6 text-sm text-[#5e5c59]">
+            <p className="mt-5 text-sm text-[#5e5c59]">
               hello@doloresarkitecture.com
             </p>
           </div>

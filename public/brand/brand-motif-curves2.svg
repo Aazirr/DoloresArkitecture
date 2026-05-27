@@ -1,0 +1,45 @@
+<svg width="640" height="720" viewBox="0 0 640 720" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">D.ARK+ brand curved line motif</title>
+  <desc id="desc">Layered rounded contour lines for dark sidebar and authentication panel backgrounds.</desc>
+  <defs>
+    <linearGradient id="motif-stroke" x1="72" y1="55" x2="566" y2="658" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity="0.82"/>
+      <stop offset="0.42" stop-color="#FFFFFF" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.66"/>
+    </linearGradient>
+    <linearGradient id="motif-stroke-soft" x1="0" y1="0" x2="640" y2="720" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity="0.24"/>
+      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.2"/>
+    </linearGradient>
+    <radialGradient id="motif-fade" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(318 360) rotate(90) scale(408 372)">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="0.74" stop-color="#FFFFFF" stop-opacity="0.72"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="fade-mask">
+      <rect width="640" height="720" fill="url(#motif-fade)"/>
+    </mask>
+  </defs>
+
+  <g mask="url(#fade-mask)" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M-58 145C70 112 198 86 301 88C396 90 450 124 462 188C476 263 409 303 315 332C222 361 114 389 91 478C70 561 146 623 263 651C350 672 468 675 680 631" stroke="url(#motif-stroke-soft)" stroke-width="36" opacity="0.26"/>
+    <path d="M-45 138C78 109 194 91 291 94C377 97 430 129 441 187C454 253 390 290 299 318C204 347 96 381 70 474C45 564 125 639 252 669C356 694 490 692 694 647" stroke="url(#motif-stroke-soft)" stroke-width="18" opacity="0.34"/>
+
+    <path d="M-32 118C91 92 205 78 294 84C367 89 416 119 428 177C441 238 389 282 293 313C182 349 69 384 43 483C18 578 105 658 242 688C346 711 492 711 705 663" stroke="url(#motif-stroke)" stroke-width="2"/>
+    <path d="M-15 143C96 118 200 106 281 112C344 117 388 142 400 190C414 248 366 282 281 311C180 345 86 381 66 469C46 559 126 629 249 656C345 677 484 674 690 626" stroke="url(#motif-stroke)" stroke-width="1.5" opacity="0.76"/>
+    <path d="M4 168C104 145 195 136 266 142C321 147 358 169 371 209C388 263 343 291 266 319C174 351 105 387 91 460C73 551 151 609 259 632C351 651 476 648 671 604" stroke="url(#motif-stroke)" stroke-width="1.3" opacity="0.58"/>
+    <path d="M25 193C111 174 192 168 254 174C303 179 333 198 346 233C364 281 321 306 253 330C174 358 126 392 115 455C101 532 170 588 265 607C356 626 470 622 655 581" stroke="url(#motif-stroke-soft)" stroke-width="1.1" opacity="0.82"/>
+
+    <path d="M514 -28C457 49 448 117 487 177C533 248 640 286 711 359" stroke="url(#motif-stroke)" stroke-width="1.6" opacity="0.72"/>
+    <path d="M544 -14C491 52 484 108 520 159C563 221 657 258 727 326" stroke="url(#motif-stroke-soft)" stroke-width="1.1" opacity="0.74"/>
+    <path d="M575 5C528 58 523 101 555 143C591 189 670 224 739 288" stroke="url(#motif-stroke-soft)" stroke-width="1" opacity="0.58"/>
+
+    <path d="M500 430C553 421 604 429 647 457C710 497 738 564 721 650C703 743 636 810 523 853" stroke="url(#motif-stroke-soft)" stroke-width="2" opacity="0.48"/>
+    <path d="M476 464C527 455 575 463 613 489C668 527 688 583 671 654C651 733 589 788 489 823" stroke="url(#motif-stroke)" stroke-width="1.4" opacity="0.62"/>
+    <path d="M454 500C499 492 540 499 572 521C620 555 633 600 616 657C596 723 539 765 451 794" stroke="url(#motif-stroke-soft)" stroke-width="1" opacity="0.58"/>
+
+    <rect x="428" y="594" width="86" height="86" rx="22" stroke="url(#motif-stroke-soft)" stroke-width="1.2" opacity="0.38"/>
+    <rect x="455" y="621" width="32" height="32" rx="8" stroke="url(#motif-stroke)" stroke-width="1.2" opacity="0.58"/>
+  </g>
+</svg>

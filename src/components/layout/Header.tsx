@@ -20,13 +20,20 @@ export default function Header() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.06] bg-[#0d0d0d]/90 backdrop-blur-md">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        {/* Logo */}
+        {/* Wordmark logo */}
         <Link
           href="/"
-          className="text-lg font-semibold tracking-[0.2em] text-[#f0ede8] transition-opacity hover:opacity-70"
+          className="transition-opacity hover:opacity-70"
           onClick={() => setOpen(false)}
+          aria-label="D.ARK+ — Home"
         >
-          D.ARK+
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/brand/d.ark-wordmark.svg"
+            alt="D.ARK+"
+            className="h-7 w-auto"
+            draggable={false}
+          />
         </Link>
 
         {/* Desktop nav */}

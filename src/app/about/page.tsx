@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Container from "@/components/ui/Container";
 import Badge from "@/components/ui/Badge";
 import Section from "@/components/ui/Section";
@@ -77,6 +78,16 @@ export default function AboutPage() {
               a lot of questions, we share our thinking openly, and we stay
               involved through construction.
             </p>
+            <div className="pt-4">
+              <Image
+                src="/brand/signature.png"
+                alt="D.ARK+ signature"
+                width={160}
+                height={64}
+                className="opacity-60"
+                draggable={false}
+              />
+            </div>
           </div>
         </div>
       </Section>

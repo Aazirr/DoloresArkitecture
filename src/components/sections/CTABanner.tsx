@@ -4,8 +4,27 @@ import { ArrowRight } from "lucide-react";
 
 export default function CTABanner() {
   return (
-    <section className="border-t border-white/[0.06] bg-[#161616] py-24">
-      <Container className="flex flex-col items-center text-center">
+    <section className="relative overflow-hidden border-t border-white/[0.06] bg-[#161616] py-24">
+      {/* Brand motif curves — left side */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/brand/brand-motif-curves.svg"
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-24 -top-12 h-[120%] w-auto select-none opacity-[0.08]"
+        draggable={false}
+      />
+      {/* Horizontal motif — right side */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/brand/brand-motif-curves2.svg"
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-8 bottom-0 w-72 select-none opacity-[0.06]"
+        draggable={false}
+      />
+
+      <Container className="relative z-10 flex flex-col items-center text-center">
         <p className="mb-4 text-xs font-medium uppercase tracking-[0.35em] text-[#c8a96e]">
           Get in touch
         </p>
