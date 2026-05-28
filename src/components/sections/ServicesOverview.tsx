@@ -1,58 +1,69 @@
 import Link from "next/link";
-import { Home, Building2, Sofa, ArrowUpRight } from "lucide-react";
-import Section from "@/components/ui/Section";
-import Badge from "@/components/ui/Badge";
-import { Reveal } from "@/components/ui/Reveal";
+import { ArrowUpRight } from "lucide-react";
+import Container from "@/components/ui/Container";
+import { Reveal, StaggerGroup, StaggerItem } from "@/components/ui/Reveal";
 import { getAllServices } from "@/lib/content";
-
-const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
-  home: Home,
-  "building-2": Building2,
-  sofa: Sofa,
-};
 
 export default function ServicesOverview() {
   const services = getAllServices();
 
   return (
-    <Section className="border-t border-white/[0.06] bg-[#0d0d0d]">
-      <Reveal className="mb-12">
-        <Badge variant="accent" className="mb-3">
-          What we do
-        </Badge>
-        <h2 className="text-3xl font-extralight tracking-tight text-[#f0ede8] sm:text-4xl">
-          Our services
-        </h2>
-      </Reveal>
-
-      <Reveal className="grid gap-px bg-white/[0.06] sm:grid-cols-2 lg:grid-cols-3">
-        {services.map((service) => {
-          const Icon = ICON_MAP[service.icon] ?? Home;
-          return (
-            <Link
-              key={service.slug}
-              href={service.permalink}
-              className="group flex flex-col gap-5 bg-[#0d0d0d] p-8 transition-colors hover:bg-[#161616]"
+    <section className="border-t border-white/[0.06] bg-[#0d0d0d] py-28">
+      <Container>
+        {/* Section header */}
+        <Reveal className="mb-16">
+          <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.45em] text-[#c8a96e]/60">
+            What we do
+          </p>
+          <h2 className="text-4xl font-extralight tracking-tight text-[#f0ede8] sm:text-5xl">
+            Our{" "}
+            <span
+              className="font-display italic text-[#c8a96e]"
+              style={{ fontFamily: "var(--font-display)" }}
             >
-              <div className="flex items-start justify-between">
-                <div className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/10 bg-[#1f1f1f] text-[#c8a96e] transition-colors group-hover:border-[#c8a96e]/30 group-hover:bg-[#c8a96e]/10">
-                  <Icon className="h-5 w-5" />
-                </div>
-                <ArrowUpRight className="h-4 w-4 text-[#5e5c59] opacity-0 transition-opacity group-hover:opacity-100" />
-              </div>
+              services
+            </span>
+          </h2>
+        </Reveal>
 
-              <div>
-                <h3 className="text-base font-medium text-[#f0ede8] transition-colors group-hover:text-[#c8a96e]">
-                  {service.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-[#9e9b97]">
-                  {service.summary}
-                </p>
-              </div>
-            </Link>
-          );
-        })}
-      </Reveal>
-    </Section>
+        {/* Numbered list */}
+        <StaggerGroup className="divide-y divide-white/[0.06]">
+          {services.map((service, i) => {
+            const num = String(i + 1).padStart(2, "0");
+            return (
+              <StaggerItem key={service.slug}>
+                <Link
+                  href={service.permalink}
+                  className="group flex items-center gap-6 py-7 transition-colors sm:gap-10"
+                >
+                  {/* Number */}
+                  <span className="w-10 shrink-0 font-mono text-sm text-[#c8a96e]/40 transition-colors group-hover:text-[#c8a96e]">
+                    {num}
+                  </span>
+
+                  {/* Title + desc */}
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-xl font-extralight tracking-wide text-[#f0ede8] transition-colors group-hover:text-[#c8a96e] sm:text-2xl">
+                      {service.title}
+                    </h3>
+                    <p className="mt-1 hidden text-sm text-[#5e5c59] sm:block">
+                      {service.summary}
+                    </p>
+                  </div>
+
+                  {/* Expanding rule */}
+                  <div className="hidden flex-1 sm:block">
+                    <div className="h-px w-full origin-left scale-x-0 bg-[#c8a96e]/25 transition-transform duration-500 group-hover:scale-x-100" />
+                  </div>
+
+                  {/* Arrow */}
+                  <ArrowUpRight className="h-5 w-5 shrink-0 text-[#5e5c59] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#c8a96e]" />
+                </Link>
+              </StaggerItem>
+            );
+          })}
+        </StaggerGroup>
+      </Container>
+    </section>
   );
 }

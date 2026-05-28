@@ -23,25 +23,33 @@ export default function Hero() {
     target: ref,
     offset: ["start start", "end start"],
   });
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
-  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "45%"]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   const container: Variants = {
     hidden: {},
-    show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+    show: { transition: { staggerChildren: 0.14, delayChildren: 0.25 } },
   };
   const item: Variants = {
-    hidden: { opacity: 0, y: reduce ? 0 : 24 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
+    hidden: { opacity: 0, y: reduce ? 0 : 36 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.9, ease: EASE } },
+  };
+  const lineItem: Variants = {
+    hidden: { opacity: 0, scaleX: 0 },
+    show: {
+      opacity: 1,
+      scaleX: 1,
+      transition: { duration: 1, ease: EASE },
+    },
   };
 
   return (
     <section
       ref={ref}
-      className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-4 text-center"
+      className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden text-center"
     >
-      {/* Background texture */}
+      {/* Parallax background */}
       <motion.div
         aria-hidden
         className="absolute inset-0"
@@ -52,46 +60,58 @@ export default function Hero() {
           alt=""
           fill
           priority
-          className="scale-110 object-cover opacity-30"
+          className="scale-110 object-cover opacity-50"
           sizes="100vw"
         />
       </motion.div>
 
-      {/* Dark overlay gradient to ensure text readability */}
+      {/* Radial vignette — darkens corners, keeps centre open */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#0d0d0d]/60 via-[#0d0d0d]/30 to-[#0d0d0d]/80"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 65% at 50% 50%, transparent 20%, rgba(13,13,13,0.65) 65%, rgba(13,13,13,0.97) 100%)",
+        }}
+      />
+      {/* Top + bottom hard fade */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#0d0d0d]/70 via-transparent to-[#0d0d0d]/80"
       />
 
-      {/* Brand motif curves — right side atmospheric */}
+      {/* Brand motif curves — right */}
       <motion.img
         src="/brand/brand-motif-curves.svg"
         alt=""
         aria-hidden="true"
-        className="pointer-events-none absolute right-0 top-0 h-full w-auto select-none opacity-[0.12]"
+        className="pointer-events-none absolute right-0 top-0 h-full w-auto select-none opacity-[0.07]"
         draggable={false}
-        initial={{ opacity: 0, x: reduce ? 0 : 40 }}
-        animate={{ opacity: 0.12, x: 0 }}
-        transition={{ duration: 1.4, ease: EASE, delay: 0.2 }}
+        initial={{ opacity: 0, x: reduce ? 0 : 60 }}
+        animate={{ opacity: 0.07, x: 0 }}
+        transition={{ duration: 2, ease: EASE, delay: 0.3 }}
       />
 
-      {/* Subtle amber radial glow at centre */}
+      {/* Amber atmospheric glow */}
       <motion.div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[900px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full"
         style={{
           background:
-            "radial-gradient(circle, rgba(200,169,110,0.07) 0%, transparent 65%)",
+            "radial-gradient(circle, rgba(200,169,110,0.08) 0%, transparent 60%)",
         }}
-        initial={{ opacity: 0, scale: 0.8 }}
+        initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.8, ease: EASE }}
+        transition={{ duration: 3, ease: EASE }}
       />
 
       {/* Content */}
       <motion.div
-        style={{ y: reduce ? 0 : contentY, opacity: reduce ? 1 : contentOpacity }}
-        className="relative z-10 w-full"
+        style={{
+          y: reduce ? 0 : contentY,
+          opacity: reduce ? 1 : contentOpacity,
+        }}
+        className="relative z-10 w-full px-6"
       >
         <Container className="flex flex-col items-center">
           <motion.div
@@ -100,34 +120,49 @@ export default function Hero() {
             animate="show"
             className="flex flex-col items-center"
           >
+            {/* Film-credit eyebrow */}
             <motion.p
               variants={item}
-              className="mb-6 text-xs font-medium uppercase tracking-[0.35em] text-[#c8a96e]"
+              className="mb-12 font-mono text-[10px] uppercase tracking-[0.55em] text-[#c8a96e]/60"
             >
-              Architecture Studio · Cebu, Philippines
+              Architecture Studio &nbsp;·&nbsp; Cebu &nbsp;·&nbsp; Est.&thinsp;2013
             </motion.p>
 
+            {/* Headline — large, tight, mixed typefaces */}
             <motion.h1
               variants={item}
-              className="max-w-3xl text-5xl font-extralight leading-[1.1] tracking-tight text-[#f0ede8] sm:text-7xl lg:text-8xl"
+              className="max-w-5xl font-sans text-[clamp(3.2rem,10vw,9.5rem)] font-extralight leading-[0.9] tracking-tighter text-[#f0ede8]"
             >
               Crafting spaces
               <br />
-              <span className="italic text-[#c8a96e]">that speak.</span>
+              <span
+                className="font-display italic text-[#c8a96e]"
+                style={{ fontFamily: "var(--font-display)" }}
+              >
+                that speak.
+              </span>
             </motion.h1>
 
+            {/* Amber rule */}
+            <motion.div
+              variants={lineItem}
+              className="my-10 h-px w-20 origin-left bg-[#c8a96e]/50"
+            />
+
+            {/* Sub-copy — minimal */}
             <motion.p
               variants={item}
-              className="mt-8 max-w-lg text-base leading-relaxed text-[#9e9b97] sm:text-lg"
+              className="max-w-xs text-sm leading-loose tracking-wide text-[#9e9b97]"
             >
-              Dolores Arkitecture is a studio dedicated to thoughtful
-              architecture and interior design — where every detail is
-              considered, every space is intentional.
+              Where every detail is considered,
+              <br />
+              every space is intentional.
             </motion.p>
 
+            {/* CTAs */}
             <motion.div
               variants={item}
-              className="mt-12 flex flex-col items-center gap-4 sm:flex-row"
+              className="mt-12 flex flex-col items-center gap-5 sm:flex-row"
             >
               <ButtonLink href="/projects" variant="primary" size="lg">
                 View Projects
@@ -143,18 +178,18 @@ export default function Hero() {
 
       {/* Scroll hint */}
       <motion.div
-        className="absolute bottom-10 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2"
+        className="absolute bottom-10 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-3"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.2, ease: EASE }}
+        transition={{ duration: 1, delay: 2, ease: EASE }}
       >
         <motion.div
-          className="h-12 w-px bg-gradient-to-b from-transparent to-[#c8a96e]/40"
+          className="h-14 w-px bg-gradient-to-b from-transparent to-[#c8a96e]/40"
           animate={reduce ? undefined : { scaleY: [0.4, 1, 0.4] }}
           style={{ transformOrigin: "top" }}
-          transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
         />
-        <span className="text-[10px] uppercase tracking-[0.3em] text-[#5e5c59]">
+        <span className="font-mono text-[9px] uppercase tracking-[0.45em] text-[#5e5c59]">
           Scroll
         </span>
       </motion.div>

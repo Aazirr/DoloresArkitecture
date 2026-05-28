@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
   { href: "/projects", label: "Projects" },
@@ -16,11 +17,26 @@ const NAV_LINKS = [
 export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.06] bg-[#0d0d0d]/90 backdrop-blur-md">
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-all duration-500",
+        scrolled || open
+          ? "border-b border-white/[0.06] bg-[#0d0d0d]/90 backdrop-blur-md"
+          : "border-b border-transparent bg-transparent"
+      )}
+    >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        {/* Wordmark logo */}
+        {/* Wordmark */}
         <Link
           href="/"
           className="transition-opacity hover:opacity-70"
@@ -44,12 +60,12 @@ export default function Header() {
               <li key={href}>
                 <Link
                   href={href}
-                  className={[
+                  className={cn(
                     "text-sm tracking-wide transition-colors",
                     active
                       ? "text-[#c8a96e]"
-                      : "text-[#9e9b97] hover:text-[#f0ede8]",
-                  ].join(" ")}
+                      : "text-[#9e9b97] hover:text-[#f0ede8]"
+                  )}
                 >
                   {label}
                 </Link>
@@ -79,12 +95,12 @@ export default function Header() {
                   <Link
                     href={href}
                     onClick={() => setOpen(false)}
-                    className={[
+                    className={cn(
                       "block rounded-md px-3 py-2 text-sm tracking-wide transition-colors",
                       active
                         ? "text-[#c8a96e]"
-                        : "text-[#9e9b97] hover:text-[#f0ede8]",
-                    ].join(" ")}
+                        : "text-[#9e9b97] hover:text-[#f0ede8]"
+                    )}
                   >
                     {label}
                   </Link>
