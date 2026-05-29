@@ -6,41 +6,48 @@ Phased delivery plan. Check off items as they're completed.
 
 ## Phase 0 — Project setup & foundations
 
-- [ ] Initialize Next.js (App Router) + TypeScript project with pnpm
-- [ ] Configure Tailwind CSS + base design tokens (colors, typography, spacing)
-- [ ] Set up ESLint + Prettier + tsconfig path aliases (`@/…`)
-- [ ] Add Velite content layer + Zod schemas (projects, services, blog)
-- [ ] Create base layout: Header, Footer, navigation, mobile menu
-- [ ] Connect repo to GitHub and deploy a "hello world" to Vercel
+- [x] Initialize Next.js (App Router) + TypeScript project with pnpm
+- [x] Configure Tailwind CSS + base design tokens (colors, typography, spacing)
+- [x] Set up ESLint + Prettier + tsconfig path aliases (`@/…`)
+- [x] Add Velite content layer + Zod schemas (projects, services, blog)
+- [x] Create base layout: Header, Footer, navigation, mobile menu
+- [x] Connect repo to GitHub and deploy a "hello world" to Vercel
 - [ ] Define `.env.example` and configure Vercel environment variables
 
 ## Phase 1 — Design system & core pages (static)
 
-- [ ] Build UI primitives (Button, Container, Card, Input, Badge, Section)
-- [ ] Implement Home page layout (hero, sections, CTA) with placeholder content
-- [ ] Implement About / Team page
-- [ ] Implement Services overview + service detail (`/services/[slug]`) from MDX
-- [ ] Implement global SEO defaults (Metadata API) + favicon/OG image scaffold
-- [ ] Responsive pass across breakpoints
+- [x] Build UI primitives (Button, Container, Card, Input, Badge, Section, Reveal)
+- [x] Implement Home page layout (hero, sections, CTA) with placeholder content
+- [x] Implement About / Team page (real team members, founding year, signature)
+- [x] Implement Services overview + service detail (`/services/[slug]`) from MDX
+- [x] Implement global SEO defaults (Metadata API) + favicon/OG image scaffold
+- [x] Cinematic redesign — Cormorant Garamond serif, scroll-aware header, vignette hero, numbered services list, editorial project cards
+- [x] Scroll-reveal animations (Reveal / StaggerGroup / StaggerItem) with reduced-motion support
+- [ ] Full responsive pass across breakpoints (ongoing)
 
 ## Phase 2 — 3D showcase (the signature feature)
 
-- [ ] Install three.js + @react-three/fiber + @react-three/drei
-- [ ] Build `ModelViewer` (Canvas, Stage/Bounds, OrbitControls, Environment)
-- [ ] Add Suspense loader + error/poster fallback (`ViewerFallback`)
-- [ ] Wire OrbitControls: orbit/pan/zoom, distance/polar limits, reset, auto-rotate
-- [ ] Code-split viewer via `next/dynamic` (`ssr: false`); lazy mount on view/click
+- [x] Install three.js + @react-three/fiber + @react-three/drei
+- [x] Build `ModelViewer` (Canvas, Stage, OrbitControls, Environment, useGLTF)
+- [x] Add Suspense progress loader + error boundary / poster fallback (`ViewerErrorBoundary`)
+- [x] Wire OrbitControls: orbit/pan/zoom, distance/polar limits, reset button, auto-rotate
+- [x] Code-split viewer via `next/dynamic` (`ssr: false`) — three.js never in initial bundle
+- [x] Add `frameloop="demand"` + reduced-motion handling (no auto-rotate if prefers-reduced-motion)
+- [x] Mobile detection via `useIsDesktop` hook — 3D disabled on < 1024 px, branded static fallback shown
+- [x] `DemoScene` — procedural architectural building for home page showcase (no GLB needed)
+- [x] `ThreeDShowcase` home page section with desktop/mobile gate
+- [x] `ViewerGate` client component used on project detail pages
 - [ ] Establish model pipeline: GLB export → Draco/Meshopt compression → `public/models/`
-- [ ] Add `frameloop="demand"` + reduced-motion handling
-- [ ] Load one real sample model end-to-end and QA on desktop + mobile
+- [ ] Load one real GLB model end-to-end and QA on desktop + mobile
 
 ## Phase 3 — Projects content & showcase pages
 
-- [ ] Build Projects index (`/projects`) gallery with light category grouping
-- [ ] Build Project detail (`/projects/[slug]`) integrating the 3D viewer + gallery
-- [ ] Author real project MDX content (3–6 flagship projects)
-- [ ] Optimize and add project images (next/image) and GLB models
-- [ ] Feature flagship projects + a 3D model on the Home page
+- [x] Build Projects index (`/projects`) gallery with numbered editorial cards
+- [x] Build Project detail (`/projects/[slug]`) with meta grid, 3D viewer, MDX body, scope tags, prev/next nav
+- [ ] Author real project MDX content (3–6 flagship projects with real details)
+- [ ] Add real project cover images and gallery photos (next/image)
+- [ ] Supply GLB models for featured projects and place in `public/models/`
+- [ ] Remove placeholder projects (villa-mactan, cebu-it-park-office) once real content is ready
 
 ## Phase 4 — Contact / lead capture
 
@@ -68,7 +75,7 @@ Phased delivery plan. Check off items as they're completed.
 
 ## Phase 7 — QA, content polish & launch
 
-- [ ] Cross-browser / cross-device QA (incl. iOS Safari & Android Chrome 3D)
+- [ ] Cross-browser / cross-device QA (incl. iOS Safari & Android Chrome)
 - [ ] Vitest unit tests for critical logic (content access, form validation, viewer fallback)
 - [ ] (Optional) Playwright smoke test: contact flow + viewer mount
 - [ ] Final content & copy review with the firm
