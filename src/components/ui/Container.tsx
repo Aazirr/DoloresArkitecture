@@ -1,15 +1,16 @@
 import { cn } from "@/lib/utils";
 
 interface ContainerProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
   as?: React.ElementType;
 }
 
 export default function Container({ children, className, as: Tag = "div" }: ContainerProps) {
+  const C = Tag as React.ComponentType<{ className?: string; children?: React.ReactNode }>;
   return (
-    <Tag className={cn("mx-auto max-w-7xl px-4 sm:px-6 lg:px-8", className)}>
+    <C className={cn("mx-auto max-w-7xl px-4 sm:px-6 lg:px-8", className)}>
       {children}
-    </Tag>
+    </C>
   );
 }
