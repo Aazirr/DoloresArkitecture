@@ -6,8 +6,7 @@ import Container from "@/components/ui/Container";
 import Badge from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
 import MDXContent from "@/components/MDXContent";
-import { ModelViewer } from "@/components/three";
-import { ViewerErrorBoundary } from "@/components/three/ViewerErrorBoundary";
+import { ViewerGate } from "@/components/three/ViewerGate";
 import { getAllProjects, getProjectBySlug } from "@/lib/content";
 
 interface Props {
@@ -102,15 +101,7 @@ export default async function ProjectDetailPage({ params }: Props) {
       {project.model && (
         <section className="border-b border-white/[0.06] bg-[#080808]">
           <div className="relative aspect-video w-full">
-            <ViewerErrorBoundary poster={project.modelPoster}>
-              <ModelViewer
-                src={project.model}
-                poster={project.modelPoster}
-                autoRotate
-                environment="city"
-                className="absolute inset-0 h-full w-full"
-              />
-            </ViewerErrorBoundary>
+            <ViewerGate src={project.model} poster={project.modelPoster} />
           </div>
           <div className="border-t border-white/[0.04] px-4 py-3">
             <p className="mx-auto max-w-7xl font-mono text-[9px] uppercase tracking-[0.4em] text-[#5e5c59]">
