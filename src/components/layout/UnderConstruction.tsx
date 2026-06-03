@@ -63,7 +63,7 @@ export function UnderConstruction({ onUnlock }: Props) {
         <button
           onClick={() => setShowMessage(true)}
           className="flex cursor-pointer flex-col items-start gap-0 focus:outline-none"
-          style={{ width: "min(88vw, 36rem)" }}
+          style={{ width: "min(62vw, 25rem)" }}
           aria-label="D.ARK+ — click to see our status"
         >
           {/* Row 1: d.ark + plus — fills 100% of container width */}
