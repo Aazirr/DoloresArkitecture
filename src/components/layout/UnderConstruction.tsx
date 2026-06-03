@@ -66,9 +66,9 @@ export function UnderConstruction({ onUnlock }: Props) {
           {/* Logo */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/brand/d.ark-wordmark2.svg"
+            src="/brand/d.ark_cover_logo.svg"
             alt="D.ARK+"
-            className="h-10 w-auto brightness-0 invert sm:h-14"
+            className="h-10 w-auto sm:h-14"
             draggable={false}
           />
 
@@ -116,7 +116,7 @@ export function UnderConstruction({ onUnlock }: Props) {
       {/* ── Bottom-left motif trigger ───────────────────────────── */}
       <motion.button
         onClick={handleMotifClick}
-        className="absolute bottom-8 left-8 focus:outline-none"
+        className="absolute bottom-8 right-8 focus:outline-none"
         aria-label="Studio access"
         whileHover={{ opacity: 0.35 }}
         initial={{ opacity: 0.1 }}
