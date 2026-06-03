@@ -92,7 +92,7 @@ export function UnderConstruction({ onUnlock }: Props) {
               src="/brand/d.ark-plus.svg"
               alt="+"
               draggable={false}
-              style={{ width: "17%", height: "auto", alignSelf: "flex-start", marginTop: "2.75%" }}
+              style={{ width: "12%", height: "auto", alignSelf: "flex-start", marginTop: "2.75%" }}
               onMouseEnter={() => setHovering(true)}
               onMouseLeave={() => setHovering(false)}
               animate={hovering ? PLUS_HOVER : PLUS_PULSE}
