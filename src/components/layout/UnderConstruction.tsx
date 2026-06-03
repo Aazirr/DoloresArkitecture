@@ -130,20 +130,22 @@ export function UnderConstruction({ onUnlock }: Props) {
           {/* Separator line — spans full container width */}
           <div className="my-2 h-px w-full bg-white/30" />
 
-          {/* Subtitle — mask fades left/right edges to hide SVG border artifacts */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/brand/d.ark-subtitle.svg"
-            alt="dolores arkitecture+"
-            style={{
-              width: "100%",
-              height: "auto",
-              WebkitMaskImage: "linear-gradient(to right, transparent, black 3%, black 97%, transparent)",
-              maskImage: "linear-gradient(to right, transparent, black 3%, black 97%, transparent)",
-            }}
-            className="brightness-0 invert opacity-70"
-            draggable={false}
-          />
+          {/* Subtitle — overflow:hidden wrapper crops the border lines from both ends */}
+          <div style={{ width: "100%", overflow: "hidden" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/brand/d.ark-subtitle.svg"
+              alt="dolores arkitecture+"
+              style={{
+                display: "block",
+                width: "calc(100% + 32px)",
+                marginLeft: "-16px",
+                height: "auto",
+              }}
+              className="brightness-0 invert opacity-70"
+              draggable={false}
+            />
+          </div>
         </button>
 
         {/* Message popup */}
