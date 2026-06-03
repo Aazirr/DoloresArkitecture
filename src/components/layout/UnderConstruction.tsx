@@ -7,12 +7,30 @@ import { X, ArrowRight } from "lucide-react";
 const PASSWORD = "darkplus_web_2026";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
+const PLUS_PULSE = {
+  scale: [1, 1.14, 1],
+  opacity: [0.75, 1, 0.75],
+  filter: [
+    "brightness(0) invert(1) drop-shadow(0 0 0px rgba(255,255,255,0))",
+    "brightness(0) invert(1) drop-shadow(0 0 18px rgba(255,255,255,0.95)) drop-shadow(0 0 45px rgba(255,255,255,0.35))",
+    "brightness(0) invert(1) drop-shadow(0 0 0px rgba(255,255,255,0))",
+  ],
+};
+
+const PLUS_HOVER = {
+  scale: 1.2,
+  opacity: 1,
+  filter:
+    "brightness(0) invert(1) sepia(1) saturate(4) hue-rotate(5deg) drop-shadow(0 0 16px rgba(200,169,110,0.95)) drop-shadow(0 0 40px rgba(200,169,110,0.45))",
+};
+
 interface Props {
   onUnlock: () => void;
 }
 
 export function UnderConstruction({ onUnlock }: Props) {
   const [showMessage, setShowMessage] = useState(false);
+  const [hovering, setHovering] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -24,10 +42,6 @@ export function UnderConstruction({ onUnlock }: Props) {
       setTimeout(() => inputRef.current?.focus(), 100);
     }
   }, [showModal]);
-
-  function handleLogoClick() {
-    setShowMessage(true);
-  }
 
   function handleMotifClick() {
     setShowModal(true);
@@ -51,20 +65,18 @@ export function UnderConstruction({ onUnlock }: Props) {
   return (
     <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black">
 
-      {/* ── Centre content ─────────────────────────────────────── */}
+      {/* ── Centre logo composition ─────────────────────────────── */}
       <div className="flex flex-col items-center gap-10">
-
-        {/* Full logo composition — clickable */}
-        <motion.button
-          onClick={handleLogoClick}
-          className="group flex cursor-pointer flex-col items-start gap-0 focus:outline-none"
-          aria-label="D.ARK+ — Click to see our status"
-          whileHover="hover"
-          initial="idle"
+        <button
+          onClick={() => setShowMessage(true)}
+          onMouseEnter={() => setHovering(true)}
+          onMouseLeave={() => setHovering(false)}
+          className="flex cursor-pointer flex-col items-start gap-0 focus:outline-none"
+          aria-label="D.ARK+ — click to see our status"
         >
-          {/* Row 1: d.ark text + animated + */}
-          <div className="flex items-center">
-            {/* d.ark text — drop d.ark-text.svg in public/brand/ */}
+          {/* Row 1: d.ark  +  */}
+          <div className="flex items-start">
+            {/* d.ark — public/brand/d.ark-text.svg (black on transparent) */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/brand/d.ark-text.svg"
@@ -73,57 +85,40 @@ export function UnderConstruction({ onUnlock }: Props) {
               draggable={false}
             />
 
-            {/* Animated + hanging to the right */}
-            <motion.span
-              className="select-none self-start font-semibold leading-none text-white"
-              style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", marginTop: "0.1em" }}
-              variants={{
-                idle: {},
-                hover: {
-                  scale: 1.25,
-                  color: "#c8a96e",
-                  textShadow:
-                    "0 0 18px rgba(200,169,110,0.9), 0 0 40px rgba(200,169,110,0.5)",
-                },
-              }}
-              transition={{ duration: 0.3, ease: EASE }}
-            >
-              <motion.span
-                className="block"
-                animate={{
-                  scale: [1, 1.18, 1],
-                  opacity: [0.7, 1, 0.7],
-                  textShadow: [
-                    "0 0 0px rgba(255,255,255,0)",
-                    "0 0 20px rgba(255,255,255,0.85), 0 0 55px rgba(255,255,255,0.3)",
-                    "0 0 0px rgba(255,255,255,0)",
-                  ],
-                }}
-                transition={{
-                  duration: 2.4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  repeatType: "loop",
-                }}
-              >
-                +
-              </motion.span>
-            </motion.span>
+            {/* + — public/brand/d.ark-plus.svg, animated glow */}
+            <motion.img
+              src="/brand/d.ark-plus.svg"
+              alt="+"
+              draggable={false}
+              className="h-16 w-auto self-start sm:h-24 lg:h-28"
+              animate={hovering ? PLUS_HOVER : PLUS_PULSE}
+              transition={
+                hovering
+                  ? { duration: 0.3, ease: EASE }
+                  : {
+                      duration: 2.4,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      repeatType: "loop",
+                    }
+              }
+            />
           </div>
 
-          {/* Horizontal separator line */}
+          {/* Separator line */}
           <div className="my-2 h-px w-full bg-white/30" />
 
-          {/* Row 2: dolores arkitecture+ subtitle */}
-          <p
-            className="font-mono tracking-widest text-white/60"
-            style={{ fontSize: "clamp(0.55rem, 1.4vw, 0.85rem)" }}
-          >
-            dolores arkitecture+
-          </p>
-        </motion.button>
+          {/* Subtitle — public/brand/d.ark-subtitle.svg (black on transparent) */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/brand/d.ark-subtitle.svg"
+            alt="dolores arkitecture+"
+            className="w-full brightness-0 invert opacity-60"
+            draggable={false}
+          />
+        </button>
 
-        {/* Popup message */}
+        {/* Message popup */}
         <AnimatePresence>
           {showMessage && (
             <motion.p
@@ -163,7 +158,6 @@ export function UnderConstruction({ onUnlock }: Props) {
       <AnimatePresence>
         {showModal && (
           <>
-            {/* Backdrop */}
             <motion.div
               key="backdrop"
               className="fixed inset-0 z-10 bg-black/70 backdrop-blur-sm"
@@ -174,7 +168,6 @@ export function UnderConstruction({ onUnlock }: Props) {
               onClick={() => setShowModal(false)}
             />
 
-            {/* Panel */}
             <motion.div
               key="panel"
               className="fixed left-1/2 top-1/2 z-20 w-[min(380px,90vw)] -translate-x-1/2 -translate-y-1/2 border border-white/[0.08] bg-[#0d0d0d] p-8"
@@ -187,7 +180,6 @@ export function UnderConstruction({ onUnlock }: Props) {
               exit={{ opacity: 0, y: 8, scale: 0.97 }}
               transition={{ duration: 0.35, ease: EASE }}
             >
-              {/* Close */}
               <button
                 onClick={() => setShowModal(false)}
                 className="absolute right-4 top-4 text-white/30 transition-colors hover:text-white/70"
