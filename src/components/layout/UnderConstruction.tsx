@@ -60,11 +60,9 @@ export function UnderConstruction({ onUnlock }: Props) {
         {/* Width-based layout: container width drives all proportions.
              83/17 split = artwork ratio (1392:278 px from SVG analysis).
              marginTop 2.75% of container = 48/530 SVG top-padding compensation. */}
-        <button
-          onClick={() => setShowMessage(true)}
-          className="flex cursor-pointer flex-col items-start gap-0 focus:outline-none"
+        <div
+          className="flex flex-col items-start gap-0"
           style={{ width: "min(62vw, 25rem)" }}
-          aria-label="D.ARK+ — click to see our status"
         >
           {/* Row 1: d.ark + plus — fills 100% of container width */}
           <div className="flex w-full items-start">
@@ -79,8 +77,9 @@ export function UnderConstruction({ onUnlock }: Props) {
 
             {/* + — blurred-duplicate glow (cross-browser, no drop-shadow) */}
             <div
-              className="relative self-start"
+              className="relative self-start cursor-pointer"
               style={{ width: "12%", marginTop: "2.75%", flexShrink: 0 }}
+              onClick={() => setShowMessage(true)}
               onMouseEnter={() => setHovering(true)}
               onMouseLeave={() => setHovering(false)}
             >
@@ -138,7 +137,7 @@ export function UnderConstruction({ onUnlock }: Props) {
             className="brightness-0 invert opacity-70"
             draggable={false}
           />
-        </button>
+        </div>
 
         {/* Message popup */}
         <AnimatePresence>
