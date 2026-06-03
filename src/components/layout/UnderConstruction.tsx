@@ -74,7 +74,7 @@ export function UnderConstruction({ onUnlock }: Props) {
 
           {/* Plus icon with pulse + glow + hover */}
           <motion.span
-            className="select-none text-4xl font-thin leading-none text-white sm:text-5xl"
+            className="select-none text-4xl font-semibold leading-none text-white sm:text-5xl"
             variants={{
               idle: {},
               hover: {
