@@ -30,7 +30,7 @@
   /* Typography */
   --font-sans:    var(--font-geist-sans), "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
-  --font-mono:    var(--font-geist-mono), ui-monospace, monospace;
+  --font-mono:    var(--font-ocr-a), var(--font-geist-mono), ui-monospace, monospace;
 }
 
 /* ─── Tailwind v4 theme registration ───────────────────────────────────────── */

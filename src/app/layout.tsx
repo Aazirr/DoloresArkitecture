@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Cormorant_Garamond } from "next/font/google";
+import localFont from "next/font/local";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { PageTransition } from "@/components/layout/PageTransition";
@@ -14,6 +15,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const ocrA = localFont({
+  src: "../../public/fonts/OCR-A-Regular.ttf",
+  variable: "--font-ocr-a",
+  display: "swap",
 });
 
 const cormorant = Cormorant_Garamond({
@@ -52,7 +59,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${cormorant.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${cormorant.variable} ${ocrA.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-[#0d0d0d] text-[#f0ede8]">
         <AccessGate>
