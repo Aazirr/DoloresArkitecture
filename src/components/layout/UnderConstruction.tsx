@@ -7,22 +7,12 @@ import { X, ArrowRight } from "lucide-react";
 const PASSWORD = "darkplus_web_2026";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const PLUS_PULSE = {
-  scale: [1, 1.14, 1],
-  opacity: [0.75, 1, 0.75],
-  filter: [
-    "brightness(0) invert(1) drop-shadow(0 0 0px rgba(255,255,255,0))",
-    "brightness(0) invert(1) drop-shadow(0 0 18px rgba(255,255,255,0.95)) drop-shadow(0 0 45px rgba(255,255,255,0.35))",
-    "brightness(0) invert(1) drop-shadow(0 0 0px rgba(255,255,255,0))",
-  ],
-};
-
-const PLUS_HOVER = {
-  scale: 1.2,
-  opacity: 1,
-  filter:
-    "brightness(0) invert(1) sepia(1) saturate(4) hue-rotate(5deg) drop-shadow(0 0 16px rgba(200,169,110,0.95)) drop-shadow(0 0 40px rgba(200,169,110,0.45))",
-};
+// Glow filter strings — same functions in both states for smooth interpolation
+const GLOW_IDLE = "brightness(0) invert(1) sepia(0) saturate(1) hue-rotate(0deg) blur(8px)";
+const GLOW_PEAK = "brightness(0) invert(1) sepia(0) saturate(1) hue-rotate(0deg) blur(16px)";
+const GLOW_HOVER = "brightness(0) invert(1) sepia(1) saturate(4) hue-rotate(5deg) blur(14px)";
+const IMG_IDLE  = "brightness(0) invert(1) sepia(0) saturate(1) hue-rotate(0deg)";
+const IMG_HOVER = "brightness(0) invert(1) sepia(1) saturate(4) hue-rotate(5deg)";
 
 interface Props {
   onUnlock: () => void;
@@ -87,37 +77,70 @@ export function UnderConstruction({ onUnlock }: Props) {
               draggable={false}
             />
 
-            {/* + — hover zone is only this element, not the whole button */}
-            <motion.img
-              src="/brand/d.ark-plus.svg"
-              alt="+"
-              draggable={false}
-              style={{ width: "12%", height: "auto", alignSelf: "flex-start", marginTop: "2.75%" }}
+            {/* + — blurred-duplicate glow (cross-browser, no drop-shadow) */}
+            <div
+              className="relative self-start"
+              style={{ width: "12%", marginTop: "2.75%", flexShrink: 0 }}
               onMouseEnter={() => setHovering(true)}
               onMouseLeave={() => setHovering(false)}
-              animate={hovering ? PLUS_HOVER : PLUS_PULSE}
-              transition={
-                hovering
-                  ? { duration: 0.3, ease: EASE }
-                  : {
-                      duration: 2.4,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      repeatType: "loop",
-                    }
-              }
-            />
+            >
+              {/* Glow layer: blurred copy behind the real image — Safari safe */}
+              <motion.img
+                src="/brand/d.ark-plus.svg"
+                aria-hidden="true"
+                draggable={false}
+                className="absolute inset-0 h-full w-full"
+                style={{ filter: GLOW_IDLE }}
+                animate={
+                  hovering
+                    ? { opacity: 0.9, scale: 1.4, filter: GLOW_HOVER }
+                    : {
+                        opacity: [0.15, 0.75, 0.15],
+                        scale: [1, 1.35, 1],
+                        filter: [GLOW_IDLE, GLOW_PEAK, GLOW_IDLE],
+                      }
+                }
+                transition={
+                  hovering
+                    ? { duration: 0.3, ease: EASE }
+                    : { duration: 2.4, repeat: Infinity, ease: "easeInOut", repeatType: "loop" }
+                }
+              />
+              {/* Real + image on top */}
+              <motion.img
+                src="/brand/d.ark-plus.svg"
+                alt="+"
+                draggable={false}
+                className="relative w-full h-auto"
+                style={{ filter: IMG_IDLE }}
+                animate={
+                  hovering
+                    ? { scale: 1.1, opacity: 1, filter: IMG_HOVER }
+                    : { scale: [1, 1.1, 1], opacity: [0.8, 1, 0.8], filter: IMG_IDLE }
+                }
+                transition={
+                  hovering
+                    ? { duration: 0.3, ease: EASE }
+                    : { duration: 2.4, repeat: Infinity, ease: "easeInOut", repeatType: "loop" }
+                }
+              />
+            </div>
           </div>
 
           {/* Separator line — spans full container width */}
           <div className="my-2 h-px w-full bg-white/30" />
 
-          {/* Subtitle — width 100% matches separator edge exactly */}
+          {/* Subtitle — mask fades left/right edges to hide SVG border artifacts */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/brand/d.ark-subtitle.svg"
             alt="dolores arkitecture+"
-            style={{ width: "100%", height: "auto" }}
+            style={{
+              width: "100%",
+              height: "auto",
+              WebkitMaskImage: "linear-gradient(to right, transparent, black 3%, black 97%, transparent)",
+              maskImage: "linear-gradient(to right, transparent, black 3%, black 97%, transparent)",
+            }}
             className="brightness-0 invert opacity-70"
             draggable={false}
           />
