@@ -19,7 +19,6 @@ export function UnderConstruction({ onUnlock }: Props) {
   const [shaking, setShaking] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Focus input when modal opens
   useEffect(() => {
     if (showModal) {
       setTimeout(() => inputRef.current?.focus(), 100);
@@ -55,58 +54,73 @@ export function UnderConstruction({ onUnlock }: Props) {
       {/* ── Centre content ─────────────────────────────────────── */}
       <div className="flex flex-col items-center gap-10">
 
-        {/* Logo + plus */}
+        {/* Full logo composition — clickable */}
         <motion.button
           onClick={handleLogoClick}
-          className="group flex cursor-pointer items-center gap-5 focus:outline-none"
+          className="group flex cursor-pointer flex-col items-start gap-0 focus:outline-none"
           aria-label="D.ARK+ — Click to see our status"
           whileHover="hover"
           initial="idle"
         >
-          {/* Logo */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/brand/d.ark_cover_logo.svg"
-            alt="D.ARK+"
-            className="h-10 w-auto sm:h-14"
-            draggable={false}
-          />
+          {/* Row 1: d.ark text + animated + */}
+          <div className="flex items-center">
+            {/* d.ark text — drop d.ark-text.svg in public/brand/ */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/brand/d.ark-text.svg"
+              alt="d.ark"
+              className="h-16 w-auto brightness-0 invert sm:h-24 lg:h-28"
+              draggable={false}
+            />
 
-          {/* Plus icon with pulse + glow + hover */}
-          <motion.span
-            className="select-none text-4xl font-semibold leading-none text-white sm:text-5xl"
-            variants={{
-              idle: {},
-              hover: {
-                scale: 1.35,
-                color: "#c8a96e",
-                textShadow:
-                  "0 0 18px rgba(200,169,110,0.9), 0 0 40px rgba(200,169,110,0.5)",
-              },
-            }}
-            transition={{ duration: 0.3, ease: EASE }}
-          >
+            {/* Animated + hanging to the right */}
             <motion.span
-              className="block"
-              animate={{
-                scale: [1, 1.18, 1],
-                opacity: [0.7, 1, 0.7],
-                textShadow: [
-                  "0 0 0px rgba(255,255,255,0)",
-                  "0 0 20px rgba(255,255,255,0.8), 0 0 50px rgba(255,255,255,0.3)",
-                  "0 0 0px rgba(255,255,255,0)",
-                ],
+              className="select-none self-start font-semibold leading-none text-white"
+              style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", marginTop: "0.1em" }}
+              variants={{
+                idle: {},
+                hover: {
+                  scale: 1.25,
+                  color: "#c8a96e",
+                  textShadow:
+                    "0 0 18px rgba(200,169,110,0.9), 0 0 40px rgba(200,169,110,0.5)",
+                },
               }}
-              transition={{
-                duration: 2.4,
-                repeat: Infinity,
-                ease: "easeInOut",
-                repeatType: "loop",
-              }}
+              transition={{ duration: 0.3, ease: EASE }}
             >
-              +
+              <motion.span
+                className="block"
+                animate={{
+                  scale: [1, 1.18, 1],
+                  opacity: [0.7, 1, 0.7],
+                  textShadow: [
+                    "0 0 0px rgba(255,255,255,0)",
+                    "0 0 20px rgba(255,255,255,0.85), 0 0 55px rgba(255,255,255,0.3)",
+                    "0 0 0px rgba(255,255,255,0)",
+                  ],
+                }}
+                transition={{
+                  duration: 2.4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  repeatType: "loop",
+                }}
+              >
+                +
+              </motion.span>
             </motion.span>
-          </motion.span>
+          </div>
+
+          {/* Horizontal separator line */}
+          <div className="my-2 h-px w-full bg-white/30" />
+
+          {/* Row 2: dolores arkitecture+ subtitle */}
+          <p
+            className="font-mono tracking-widest text-white/60"
+            style={{ fontSize: "clamp(0.55rem, 1.4vw, 0.85rem)" }}
+          >
+            dolores arkitecture+
+          </p>
         </motion.button>
 
         {/* Popup message */}
@@ -126,7 +140,7 @@ export function UnderConstruction({ onUnlock }: Props) {
         </AnimatePresence>
       </div>
 
-      {/* ── Bottom-left motif trigger ───────────────────────────── */}
+      {/* ── Bottom-right motif trigger ──────────────────────────── */}
       <motion.button
         onClick={handleMotifClick}
         className="absolute bottom-8 right-8 focus:outline-none"
