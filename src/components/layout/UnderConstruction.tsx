@@ -140,7 +140,7 @@ export function UnderConstruction({ onUnlock }: Props) {
           src="/brand/brand-motif-curves.svg"
           alt=""
           aria-hidden="true"
-          className="h-24 w-auto select-none"
+          className="h-8 w-auto select-none"
           draggable={false}
         />
       </motion.button>
