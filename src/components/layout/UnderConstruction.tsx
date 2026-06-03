@@ -67,32 +67,32 @@ export function UnderConstruction({ onUnlock }: Props) {
 
       {/* ── Centre logo composition ─────────────────────────────── */}
       <div className="flex flex-col items-center gap-10">
+        {/* Width-based layout: container width drives all proportions.
+             83/17 split = artwork ratio (1392:278 px from SVG analysis).
+             marginTop 2.75% of container = 48/530 SVG top-padding compensation. */}
         <button
           onClick={() => setShowMessage(true)}
           className="flex cursor-pointer flex-col items-start gap-0 focus:outline-none"
+          style={{ width: "min(88vw, 36rem)" }}
           aria-label="D.ARK+ — click to see our status"
         >
-          {/* Row 1: d.ark  +  */}
-          <div className="flex items-start">
+          {/* Row 1: d.ark + plus — fills 100% of container width */}
+          <div className="flex w-full items-start">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/brand/d.ark-text.svg"
               alt="d.ark"
-              style={{ height: "clamp(5rem, 20vw, 14rem)" }}
-              className="w-auto brightness-0 invert"
+              style={{ width: "83%", height: "auto" }}
+              className="brightness-0 invert"
               draggable={false}
             />
 
-            {/* + — hover zone is ONLY this image element, not the whole button */}
+            {/* + — hover zone is only this element, not the whole button */}
             <motion.img
               src="/brand/d.ark-plus.svg"
               alt="+"
               draggable={false}
-              className="w-auto self-start"
-              style={{
-                height: "clamp(2.75rem, 11vw, 7.7rem)",
-                marginTop: "clamp(0.45rem, 1.8vw, 1.25rem)",
-              }}
+              style={{ width: "17%", height: "auto", alignSelf: "flex-start", marginTop: "2.75%" }}
               onMouseEnter={() => setHovering(true)}
               onMouseLeave={() => setHovering(false)}
               animate={hovering ? PLUS_HOVER : PLUS_PULSE}
@@ -109,16 +109,16 @@ export function UnderConstruction({ onUnlock }: Props) {
             />
           </div>
 
-          {/* Separator line */}
+          {/* Separator line — spans full container width */}
           <div className="my-2 h-px w-full bg-white/30" />
 
-          {/* Subtitle — invert only (no brightness-0): white bg → black = invisible on
-               black page, black text → white = visible. Removes the border artifact. */}
+          {/* Subtitle — width 100% matches separator edge exactly */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/brand/d.ark-subtitle.svg"
             alt="dolores arkitecture+"
-            className="w-full invert opacity-70"
+            style={{ width: "100%", height: "auto" }}
+            className="brightness-0 invert opacity-70"
             draggable={false}
           />
         </button>
