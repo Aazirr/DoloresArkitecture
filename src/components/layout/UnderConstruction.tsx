@@ -69,33 +69,32 @@ export function UnderConstruction({ onUnlock }: Props) {
       <div className="flex flex-col items-center gap-10">
         <button
           onClick={() => setShowMessage(true)}
-          onMouseEnter={() => setHovering(true)}
-          onMouseLeave={() => setHovering(false)}
           className="flex cursor-pointer flex-col items-start gap-0 focus:outline-none"
           aria-label="D.ARK+ — click to see our status"
         >
           {/* Row 1: d.ark  +  */}
           <div className="flex items-start">
-            {/* d.ark — public/brand/d.ark-text.svg (black on transparent) */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/brand/d.ark-text.svg"
               alt="d.ark"
-              className="h-20 w-auto brightness-0 invert sm:h-28 lg:h-36"
+              style={{ height: "clamp(5rem, 20vw, 14rem)" }}
+              className="w-auto brightness-0 invert"
               draggable={false}
             />
 
-            {/* + — sized to ~55% of text height (corrects for tight crop vs padded canvas)
-                 margin-top aligns glyph with text character tops (48/530 SVG top padding) */}
+            {/* + — hover zone is ONLY this image element, not the whole button */}
             <motion.img
               src="/brand/d.ark-plus.svg"
               alt="+"
               draggable={false}
               className="w-auto self-start"
               style={{
-                height: "clamp(2.4rem, 3.8vw, 5rem)",
-                marginTop: "clamp(0.4rem, 0.65vw, 0.85rem)",
+                height: "clamp(2.75rem, 11vw, 7.7rem)",
+                marginTop: "clamp(0.45rem, 1.8vw, 1.25rem)",
               }}
+              onMouseEnter={() => setHovering(true)}
+              onMouseLeave={() => setHovering(false)}
               animate={hovering ? PLUS_HOVER : PLUS_PULSE}
               transition={
                 hovering
@@ -113,12 +112,13 @@ export function UnderConstruction({ onUnlock }: Props) {
           {/* Separator line */}
           <div className="my-2 h-px w-full bg-white/30" />
 
-          {/* Subtitle — public/brand/d.ark-subtitle.svg (black on transparent) */}
+          {/* Subtitle — invert only (no brightness-0): white bg → black = invisible on
+               black page, black text → white = visible. Removes the border artifact. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/brand/d.ark-subtitle.svg"
             alt="dolores arkitecture+"
-            className="w-full brightness-0 invert opacity-60"
+            className="w-full invert opacity-70"
             draggable={false}
           />
         </button>
