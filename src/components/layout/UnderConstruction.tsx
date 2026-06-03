@@ -81,16 +81,21 @@ export function UnderConstruction({ onUnlock }: Props) {
             <img
               src="/brand/d.ark-text.svg"
               alt="d.ark"
-              className="h-16 w-auto brightness-0 invert sm:h-24 lg:h-28"
+              className="h-20 w-auto brightness-0 invert sm:h-28 lg:h-36"
               draggable={false}
             />
 
-            {/* + — public/brand/d.ark-plus.svg, animated glow */}
+            {/* + — sized to ~55% of text height (corrects for tight crop vs padded canvas)
+                 margin-top aligns glyph with text character tops (48/530 SVG top padding) */}
             <motion.img
               src="/brand/d.ark-plus.svg"
               alt="+"
               draggable={false}
-              className="h-16 w-auto self-start sm:h-24 lg:h-28"
+              className="w-auto self-start"
+              style={{
+                height: "clamp(2.4rem, 3.8vw, 5rem)",
+                marginTop: "clamp(0.4rem, 0.65vw, 0.85rem)",
+              }}
               animate={hovering ? PLUS_HOVER : PLUS_PULSE}
               transition={
                 hovering
