@@ -72,18 +72,31 @@ export function UnderConstruction({ onUnlock }: Props) {
             draggable={false}
           />
 
-          {/* Plus icon with pulse + hover */}
+          {/* Plus icon with pulse + glow + hover */}
           <motion.span
             className="select-none text-4xl font-thin leading-none text-white sm:text-5xl"
             variants={{
               idle: {},
-              hover: { scale: 1.35, color: "#c8a96e" },
+              hover: {
+                scale: 1.35,
+                color: "#c8a96e",
+                textShadow:
+                  "0 0 18px rgba(200,169,110,0.9), 0 0 40px rgba(200,169,110,0.5)",
+              },
             }}
             transition={{ duration: 0.3, ease: EASE }}
           >
             <motion.span
               className="block"
-              animate={{ scale: [1, 1.18, 1], opacity: [0.6, 1, 0.6] }}
+              animate={{
+                scale: [1, 1.18, 1],
+                opacity: [0.7, 1, 0.7],
+                textShadow: [
+                  "0 0 0px rgba(255,255,255,0)",
+                  "0 0 20px rgba(255,255,255,0.8), 0 0 50px rgba(255,255,255,0.3)",
+                  "0 0 0px rgba(255,255,255,0)",
+                ],
+              }}
               transition={{
                 duration: 2.4,
                 repeat: Infinity,
