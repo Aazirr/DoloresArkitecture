@@ -1,13 +1,22 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext, useContext } from "react";
 import { UnderConstruction } from "./UnderConstruction";
 
 const ACCESS_KEY = "dark-studio-access";
 
+interface AuthCtx {
+  logout: () => void;
+}
+
+const AuthContext = createContext<AuthCtx>({ logout: () => {} });
+
+/** Use inside any client component to get the logout function. */
+export function useAuth() {
+  return useContext(AuthContext);
+}
+
 export function AccessGate({ children }: { children: React.ReactNode }) {
-  // Start locked — switches to unlocked after localStorage check on mount.
-  // Authorised users see at most one frame of the construction page.
   const [unlocked, setUnlocked] = useState(false);
   const [checked, setChecked] = useState(false);
 
@@ -21,12 +30,20 @@ export function AccessGate({ children }: { children: React.ReactNode }) {
     setUnlocked(true);
   }
 
-  // Before the localStorage check completes, show nothing to avoid any flash.
+  function handleLogout() {
+    localStorage.removeItem(ACCESS_KEY);
+    setUnlocked(false);
+  }
+
   if (!checked) return null;
 
   if (!unlocked) {
     return <UnderConstruction onUnlock={handleUnlock} />;
   }
 
-  return <>{children}</>;
+  return (
+    <AuthContext.Provider value={{ logout: handleLogout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }

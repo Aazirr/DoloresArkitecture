@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/components/layout/AccessGate";
 
 const NAV_LINKS = [
   { href: "/projects", label: "Projects" },
@@ -18,6 +19,7 @@ export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { logout } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -74,6 +76,17 @@ export default function Header() {
           })}
         </ul>
 
+        {/* Logout — desktop */}
+        <button
+          onClick={logout}
+          title="Lock site"
+          aria-label="Log out"
+          className="hidden items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.35em] text-[#5e5c59] transition-colors hover:text-[#c8a96e] md:flex"
+        >
+          <LogOut className="h-3 w-3" />
+          Lock
+        </button>
+
         {/* Mobile toggle */}
         <button
           className="rounded-md p-2 text-[#9e9b97] transition-colors hover:text-[#f0ede8] md:hidden"
@@ -108,6 +121,15 @@ export default function Header() {
               );
             })}
           </ul>
+          <div className="border-t border-white/[0.06] px-4 py-3 sm:px-6">
+            <button
+              onClick={logout}
+              className="flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.35em] text-[#5e5c59] transition-colors hover:text-[#c8a96e]"
+            >
+              <LogOut className="h-3 w-3" />
+              Lock site
+            </button>
+          </div>
         </div>
       )}
     </header>
