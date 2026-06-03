@@ -7,32 +7,45 @@ import { X, ArrowRight } from "lucide-react";
 const PASSWORD = "darkplus_web_2026";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-// Max velocity = 5400 deg/s (15 full rotations/sec at peak)
-const VEL_PER_CLICK = 720;   // degrees/sec added per click
+const GHOST_IMAGES = ["/ghosts/1.png", "/ghosts/2.png", "/ghosts/3.png", "/ghosts/4.png"];
+const GHOST_THRESHOLD = 2500; // deg/s before ghosts appear
+const GHOST_INTERVAL  = 800;  // ms between spawns
+const GHOST_MAX       = 8;    // max ghosts on screen
+
+const VEL_PER_CLICK = 720;
 const VEL_MAX       = 5400;
-const VEL_DECAY     = 0.985; // per frame at ~60fps  → half-life ≈ 0.75s
-const AMBER_THRESHOLD = 1800; // deg/s at which glow shifts amber
+const VEL_DECAY     = 0.985;
+const AMBER_THRESHOLD = 1800;
 
 function glowFilter(blur: number, amber: boolean) {
-  const s = amber ? 1 : 0;
+  const s   = amber ? 1 : 0;
   const sat = amber ? 5 : 1;
   const hue = amber ? "5deg" : "0deg";
   return `brightness(0) invert(1) sepia(${s}) saturate(${sat}) hue-rotate(${hue}) blur(${blur}px)`;
 }
-
 function imgFilter(amber: boolean) {
-  const s = amber ? 1 : 0;
+  const s   = amber ? 1 : 0;
   const sat = amber ? 4 : 1;
   const hue = amber ? "5deg" : "0deg";
   return `brightness(0) invert(1) sepia(${s}) saturate(${sat}) hue-rotate(${hue})`;
 }
 
-// Static filter strings for non-spinning states
 const GLOW_IDLE  = glowFilter(8,  false);
 const GLOW_PEAK  = glowFilter(16, false);
 const GLOW_HOVER = glowFilter(14, true);
 const IMG_IDLE   = imgFilter(false);
 const IMG_HOVER  = imgFilter(true);
+
+interface GhostItem {
+  id: number;
+  src: string;
+  x: number;   // vw %
+  y: number;   // vh %
+  size: number; // px
+  rotate: number; // deg
+  opacity: number;
+  duration: number; // animation s
+}
 
 interface Props {
   onUnlock: () => void;
@@ -47,15 +60,20 @@ export function UnderConstruction({ onUnlock }: Props) {
   const [shaking, setShaking]         = useState(false);
 
   // Spin state
-  const [isSpinning, setIsSpinning] = useState(false);
+  const [isSpinning, setIsSpinning]   = useState(false);
   const [clickBounce, setClickBounce] = useState(false);
-  const [spinBlur, setSpinBlur]     = useState(8);
-  const [spinAmber, setSpinAmber]   = useState(false);
+  const [spinBlur, setSpinBlur]       = useState(8);
+  const [spinAmber, setSpinAmber]     = useState(false);
+
+  // Ghost state
+  const [ghosts, setGhosts]           = useState<GhostItem[]>([]);
 
   const rotateVal      = useMotionValue(0);
   const velRef         = useRef(0);
   const rafRef         = useRef<number | null>(null);
   const bounceTimer    = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const ghostCounter   = useRef(0);
+  const lastSpawnRef   = useRef(0);
   const inputRef       = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -64,12 +82,35 @@ export function UnderConstruction({ onUnlock }: Props) {
 
   useEffect(() => {
     return () => {
-      if (rafRef.current)   cancelAnimationFrame(rafRef.current);
+      if (rafRef.current)      cancelAnimationFrame(rafRef.current);
       if (bounceTimer.current) clearTimeout(bounceTimer.current);
     };
   }, []);
 
-  // ── Spin physics ───────────────────────────────────────────────
+  // ── Ghost spawner ───────────────────────────────────────────────
+
+  function spawnGhost() {
+    setGhosts(prev => {
+      if (prev.length >= GHOST_MAX) return prev;
+
+      const id       = ++ghostCounter.current;
+      const src      = GHOST_IMAGES[Math.floor(Math.random() * GHOST_IMAGES.length)];
+      const size     = 60 + Math.random() * 130;    // 60–190px
+      const x        = 5  + Math.random() * 85;     // 5–90vw
+      const y        = 5  + Math.random() * 80;     // 5–85vh
+      const rotate   = (Math.random() - 0.5) * 30;  // ±15°
+      const opacity  = 0.15 + Math.random() * 0.25; // 0.15–0.40
+      const duration = 2.5 + Math.random() * 1.5;   // 2.5–4s
+
+      return [...prev, { id, src, x, y, size, rotate, opacity, duration }];
+    });
+  }
+
+  function removeGhost(id: number) {
+    setGhosts(prev => prev.filter(g => g.id !== id));
+  }
+
+  // ── Spin physics ────────────────────────────────────────────────
 
   function startSpinLoop() {
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
@@ -78,10 +119,17 @@ export function UnderConstruction({ onUnlock }: Props) {
       velRef.current *= VEL_DECAY;
       rotateVal.set(rotateVal.get() + velRef.current / 60);
 
-      // Update glow visuals (blur grows with speed, amber above threshold)
-      const blur = 8 + Math.min(velRef.current / 200, 24);
-      setSpinBlur(blur);
+      setSpinBlur(8 + Math.min(velRef.current / 200, 24));
       setSpinAmber(velRef.current > AMBER_THRESHOLD);
+
+      // Spawn ghosts when spinning fast enough
+      if (velRef.current > GHOST_THRESHOLD) {
+        const now = Date.now();
+        if (now - lastSpawnRef.current > GHOST_INTERVAL) {
+          lastSpawnRef.current = now;
+          spawnGhost();
+        }
+      }
 
       if (velRef.current > 3) {
         rafRef.current = requestAnimationFrame(tick);
@@ -97,29 +145,24 @@ export function UnderConstruction({ onUnlock }: Props) {
   }
 
   function handlePlusClick() {
-    // First click reveals the message; subsequent clicks spin
     if (!showMessage) {
       setShowMessage(true);
       return;
     }
 
-    // Scale bounce feedback on each click
     setClickBounce(true);
     if (bounceTimer.current) clearTimeout(bounceTimer.current);
     bounceTimer.current = setTimeout(() => setClickBounce(false), 180);
 
-    // Accelerate — each click adds velocity, capped at max
     velRef.current = Math.min(velRef.current + VEL_PER_CLICK, VEL_MAX);
     if (!isSpinning) setIsSpinning(true);
     startSpinLoop();
   }
 
-  // ── Derived filter strings ─────────────────────────────────────
-
   const activeGlowFilter = isSpinning ? glowFilter(spinBlur, spinAmber) : undefined;
-  const activeImgFilter  = isSpinning ? imgFilter(spinAmber)              : undefined;
+  const activeImgFilter  = isSpinning ? imgFilter(spinAmber)             : undefined;
 
-  // ── Modal helpers ──────────────────────────────────────────────
+  // ── Modal helpers ───────────────────────────────────────────────
 
   function handleMotifClick() {
     setShowModal(true);
@@ -140,12 +183,66 @@ export function UnderConstruction({ onUnlock }: Props) {
     }
   }
 
-  // ── Render ─────────────────────────────────────────────────────
+  // ── Render ──────────────────────────────────────────────────────
 
   return (
     <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black">
 
-      {/* ── Centre logo composition ─────────────────────────────── */}
+      {/* ── Ghost silhouettes ────────────────────────────────────── */}
+      <AnimatePresence>
+        {ghosts.map(ghost => (
+          <motion.img
+            key={ghost.id}
+            src={ghost.src}
+            alt=""
+            aria-hidden="true"
+            draggable={false}
+            className="pointer-events-none fixed select-none"
+            style={{
+              left:   `${ghost.x}vw`,
+              top:    `${ghost.y}vh`,
+              width:  ghost.size,
+              height: "auto",
+              rotate: ghost.rotate,
+              zIndex: 101,
+            }}
+            initial={{ opacity: 0 }}
+            animate={{
+              // Glitch materialisation (first 40%) → ghost float (40-75%) → fade out (75-100%)
+              opacity: [
+                0, ghost.opacity * 0.9, 0, ghost.opacity, 0,
+                ghost.opacity * 0.6, ghost.opacity, ghost.opacity,
+                ghost.opacity * 0.4, 0,
+              ],
+              x: [6, -8, 5, -4, 7, -1, 0, 0, 0, 0],
+              y: [0, 1, -2, 2, -1, 0, 0, -22, -50, -80],
+              scale: [0.82, 1.08, 0.92, 1.04, 0.96, 1, 1, 1, 0.94, 0.82],
+              filter: [
+                // Chromatic colour flashes during glitch
+                "brightness(0) invert(1) hue-rotate(140deg) saturate(5)",
+                "brightness(0) invert(1)",
+                "brightness(0) invert(1) hue-rotate(220deg) saturate(4)",
+                "brightness(0) invert(1)",
+                "brightness(0) invert(1) hue-rotate(60deg) saturate(6)",
+                "brightness(0) invert(1)",
+                // Settled ghost — pure white inverted silhouette
+                "brightness(0) invert(1)",
+                "brightness(0) invert(1)",
+                "brightness(0) invert(1)",
+                "brightness(0) invert(1)",
+              ],
+            }}
+            transition={{
+              duration: ghost.duration,
+              times: [0, 0.06, 0.12, 0.18, 0.26, 0.34, 0.42, 0.65, 0.84, 1],
+              ease: "linear",
+            }}
+            onAnimationComplete={() => removeGhost(ghost.id)}
+          />
+        ))}
+      </AnimatePresence>
+
+      {/* ── Centre logo composition ──────────────────────────────── */}
       <div className="flex flex-col items-center gap-10">
         <div
           className="flex flex-col items-start gap-0"
@@ -169,7 +266,7 @@ export function UnderConstruction({ onUnlock }: Props) {
                 width: "12%",
                 marginTop: "2.75%",
                 flexShrink: 0,
-                rotate: rotateVal,       // physics-driven rotation
+                rotate: rotateVal,
               }}
               animate={clickBounce ? { scale: 1.3 } : { scale: 1 }}
               transition={{ duration: 0.15, ease: EASE }}
@@ -177,7 +274,7 @@ export function UnderConstruction({ onUnlock }: Props) {
               onMouseEnter={() => setHovering(true)}
               onMouseLeave={() => setHovering(false)}
             >
-              {/* Glow layer — filter driven by state, opacity/scale by animate */}
+              {/* Glow layer */}
               <motion.img
                 src="/brand/d.ark-plus.svg"
                 aria-hidden="true"
@@ -199,7 +296,7 @@ export function UnderConstruction({ onUnlock }: Props) {
                       : { duration: 2.4, repeat: Infinity, ease: "easeInOut", repeatType: "loop" }
                 }
               />
-              {/* Real + on top */}
+              {/* Real + */}
               <motion.img
                 src="/brand/d.ark-plus.svg"
                 alt="+"
@@ -249,9 +346,7 @@ export function UnderConstruction({ onUnlock }: Props) {
               transition={{ duration: 0.5, ease: EASE }}
               className="font-mono text-[11px] uppercase tracking-[0.45em] text-white/50"
             >
-              {isSpinning && spinAmber
-                ? "🔥 slow down!!"
-                : "We are building our website"}
+              {isSpinning && spinAmber ? "slow down!!" : "We are building our website"}
             </motion.p>
           )}
         </AnimatePresence>
@@ -311,9 +406,7 @@ export function UnderConstruction({ onUnlock }: Props) {
               <p className="mb-1 font-mono text-[9px] uppercase tracking-[0.45em] text-[#c8a96e]/60">
                 Studio Access
               </p>
-              <h2 className="text-xl font-extralight text-white">
-                Enter password
-              </h2>
+              <h2 className="text-xl font-extralight text-white">Enter password</h2>
               <form onSubmit={handleSubmit} className="mt-8 space-y-5">
                 <div className="flex flex-col gap-2">
                   <input
