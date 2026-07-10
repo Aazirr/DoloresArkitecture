@@ -21,9 +21,13 @@ Phased delivery plan. Check off items as they're completed.
 - [x] Implement About / Team page (real team members, founding year, signature)
 - [x] Implement Services overview + service detail (`/services/[slug]`) from MDX
 - [x] Implement global SEO defaults (Metadata API) + favicon/OG image scaffold
-- [x] Cinematic redesign — Cormorant Garamond serif, scroll-aware header, vignette hero, numbered services list, editorial project cards
+- [x] Whole-frontend "Measured Night" redesign — Barlow Condensed display type, technical ruled layouts, square controls, and warm-amber drafting details
+- [x] Interactive architectural elevation hero with precise SVG linework, dimension marks, pointer parallax, and reduced-motion support
+- [x] Redesign Home, Projects, Services, About, Contact, project detail, and service detail surfaces while preserving the access gate and v1 scope
+- [x] Add project design context (`PRODUCT.md`) and Impeccable live-mode configuration
 - [x] Scroll-reveal animations (Reveal / StaggerGroup / StaggerItem) with reduced-motion support
 - [ ] Full responsive pass across breakpoints (ongoing)
+- [x] Verify redesigned hero and access gate in-browser; ensure motion never hides default content
 
 ## Phase 2 — 3D showcase (the signature feature)
 

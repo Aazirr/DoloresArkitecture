@@ -10,11 +10,11 @@ export default function Badge({ children, className, variant = "default" }: Badg
   return (
     <span
       className={cn(
-        "inline-block text-xs font-medium uppercase tracking-widest",
+        "inline-block font-mono text-[9px] font-medium uppercase tracking-[0.28em]",
         variant === "default" && "text-[#9e9b97]",
         variant === "accent" && "text-[#c8a96e]",
         variant === "outline" &&
-          "rounded-full border border-white/10 px-3 py-1 text-[#9e9b97]",
+          "border border-white/10 px-3 py-1 text-[#9e9b97]",
         className
       )}
     >

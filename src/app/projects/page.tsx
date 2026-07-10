@@ -17,17 +17,14 @@ export default function ProjectsPage() {
   return (
     <>
       {/* Header */}
-      <section className="border-b border-white/[0.06] pb-20 pt-36">
+      <section className="drafting-grid border-b border-white/[0.08] pb-20 pt-24">
         <Container>
           <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.45em] text-[#c8a96e]/60">
             Portfolio
           </p>
-          <h1 className="max-w-xl text-5xl font-extralight leading-[1.0] tracking-tight text-[#f0ede8] sm:text-6xl">
+          <h1 className="display-condensed max-w-4xl text-[clamp(4rem,8vw,7.5rem)] leading-[0.8] text-[#f0ede8]">
             Selected{" "}
-            <span
-              className="font-display italic text-[#c8a96e]"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
+            <span className="text-[#c8a96e]">
               work
             </span>
           </h1>
@@ -53,17 +50,11 @@ export default function ProjectsPage() {
                   <Link
                     key={project.slug}
                     href={project.permalink}
-                    className="group relative flex h-full flex-col overflow-hidden border border-transparent bg-[#0d0d0d] transition-all duration-500 hover:border-[#c8a96e]/20"
+                    className="group relative flex h-full flex-col overflow-hidden border border-white/[0.06] bg-[#0d0d0d] transition-all duration-500 hover:border-[#c8a96e]/40"
                   >
                     {/* Image placeholder */}
                     <div className="relative aspect-[4/3] overflow-hidden bg-[#111]">
-                      <div
-                        className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-105"
-                        style={{
-                          background:
-                            "radial-gradient(ellipse at 60% 40%, #1e1a14 0%, #111 60%, #0a0a0a 100%)",
-                        }}
-                      />
+                      <div className="drafting-grid absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-105" />
                       <span className="pointer-events-none absolute right-4 top-4 font-mono text-7xl font-light leading-none text-[#c8a96e]/[0.1] transition-all duration-500 group-hover:text-[#c8a96e]/[0.2]">
                         {num}
                       </span>

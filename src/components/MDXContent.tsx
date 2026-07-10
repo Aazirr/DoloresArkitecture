@@ -10,7 +10,6 @@ interface MDXContentProps {
 export default function MDXContent({ code }: MDXContentProps) {
   const Component = useMemo(() => {
     // Velite compiles MDX to executable JS; we run it here in the browser
-    // eslint-disable-next-line no-new-func
     const fn = new Function(code);
     return fn({ ...runtime }).default as React.ComponentType;
   }, [code]);

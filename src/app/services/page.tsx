@@ -24,18 +24,18 @@ export default function ServicesPage() {
   return (
     <>
       {/* Hero */}
-      <section className="border-b border-white/[0.06] pb-24 pt-32">
+      <section className="drafting-grid border-b border-white/[0.08] pb-24 pt-24">
         <Container>
           <Badge variant="accent" className="mb-6">
             What we offer
           </Badge>
-          <h1 className="max-w-xl text-5xl font-extralight leading-[1.1] tracking-tight text-[#f0ede8] sm:text-6xl">
-            Our services
+          <h1 className="display-condensed max-w-4xl text-[clamp(4rem,8vw,7.5rem)] leading-[0.8] text-[#f0ede8]">
+            Design from <span className="text-[#c8a96e]">first principles.</span>
           </h1>
           <p className="mt-6 max-w-lg text-base leading-relaxed text-[#9e9b97]">
             From concept to construction, we offer a complete range of
             architectural and interior design services tailored to each
-            project's unique requirements.
+            project&apos;s unique requirements.
           </p>
         </Container>
       </section>
@@ -43,32 +43,29 @@ export default function ServicesPage() {
       {/* Services grid */}
       <section className="py-24">
         <Container>
-          <div className="grid gap-px bg-white/[0.06] sm:grid-cols-2">
+          <div className="divide-y divide-white/[0.08] border-y border-white/[0.08]">
             {services.map((service) => {
               const Icon = ICON_MAP[service.icon] ?? Home;
               return (
                 <Link
                   key={service.slug}
                   href={service.permalink}
-                  className="group flex flex-col gap-6 bg-[#0d0d0d] p-10 transition-colors hover:bg-[#161616]"
+                  className="group grid min-h-40 grid-cols-[4rem_1fr_auto] items-center gap-5 bg-[#0d0d0d] px-4 py-8 transition-colors hover:bg-[#c8a96e] sm:px-8"
                 >
                   <div className="flex items-start justify-between">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-[#1f1f1f] text-[#c8a96e] transition-colors group-hover:border-[#c8a96e]/30 group-hover:bg-[#c8a96e]/10">
+                    <div className="flex h-12 w-12 items-center justify-center border border-white/10 bg-[#1f1f1f] text-[#c8a96e] transition-colors group-hover:border-[#0d0d0d]/30 group-hover:bg-[#0d0d0d]">
                       <Icon className="h-5 w-5" />
                     </div>
-                    <ArrowUpRight className="h-5 w-5 text-[#5e5c59] opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" />
                   </div>
                   <div>
-                    <h2 className="text-xl font-light text-[#f0ede8] transition-colors group-hover:text-[#c8a96e]">
+                    <h2 className="display-condensed text-3xl text-[#f0ede8] transition-colors group-hover:text-[#0d0d0d] sm:text-4xl">
                       {service.title}
                     </h2>
-                    <p className="mt-3 text-sm leading-relaxed text-[#9e9b97]">
+                    <p className="mt-2 text-sm leading-relaxed text-[#9e9b97] group-hover:text-[#0d0d0d]/70">
                       {service.summary}
                     </p>
                   </div>
-                  <span className="mt-auto text-xs font-medium tracking-widest text-[#5e5c59] uppercase transition-colors group-hover:text-[#c8a96e]">
-                    Learn more
-                  </span>
+                  <ArrowUpRight className="h-5 w-5 text-[#5e5c59] transition-all duration-200 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#0d0d0d]" />
                 </Link>
               );
             })}

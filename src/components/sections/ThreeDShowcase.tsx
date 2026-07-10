@@ -10,23 +10,19 @@ export default function ThreeDShowcase() {
   const isDesktop = useIsDesktop();
 
   return (
-    <section className="border-t border-white/[0.06] bg-[#0d0d0d] py-28">
+    <section className="border-b border-white/[0.08] bg-[#0d0d0d] py-24 lg:py-32">
       <Container>
         {/* Header */}
-        <Reveal className="mb-14 max-w-2xl">
-          <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.45em] text-[#c8a96e]/60">
-            Interactive 3D
+        <Reveal className="mb-14 grid gap-8 border-b border-white/[0.08] pb-8 md:grid-cols-[1fr_0.65fr] md:items-end">
+          <div>
+          <p className="technical-label mb-4 text-[#c8a96e]">
+            Spatial study / Interactive 3D
           </p>
-          <h2 className="text-4xl font-extralight tracking-tight text-[#f0ede8] sm:text-5xl">
-            Experience your design{" "}
-            <span
-              className="font-display italic text-[#c8a96e]"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
-              in three dimensions.
-            </span>
+          <h2 className="display-condensed text-[clamp(3.4rem,7vw,6.5rem)] leading-[0.82] text-[#f0ede8]">
+            Walk through the <span className="text-[#c8a96e]">idea.</span>
           </h2>
-          <p className="mt-5 text-sm leading-relaxed text-[#9e9b97]">
+          </div>
+          <p className="max-w-md text-sm leading-relaxed text-[#9e9b97] md:justify-self-end">
             Every D.ARK+ project can be explored as an interactive 3D model.
             Orbit, pan, and zoom at your own pace.
           </p>
@@ -34,7 +30,7 @@ export default function ThreeDShowcase() {
 
         {/* Canvas — desktop only */}
         <Reveal delay={0.15}>
-          <div className="relative aspect-video overflow-hidden border border-white/[0.06]">
+          <div className="relative aspect-video overflow-hidden border border-white/[0.10] bg-[#080808]">
             {isDesktop ? (
               <>
                 <DemoViewer autoRotate className="absolute inset-0 h-full w-full" />

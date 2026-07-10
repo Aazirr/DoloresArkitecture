@@ -1,115 +1,57 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import Container from "@/components/ui/Container";
-import Badge from "@/components/ui/Badge";
-import { ButtonLink } from "@/components/ui/Button";
 import { Reveal, StaggerGroup, StaggerItem } from "@/components/ui/Reveal";
 import { getFeaturedProjects } from "@/lib/content";
-
-function ProjectCard({
-  project,
-  index,
-}: {
-  project: ReturnType<typeof getFeaturedProjects>[number];
-  index: number;
-}) {
-  const num = String(index + 1).padStart(2, "0");
-
-  return (
-    <Link
-      href={project.permalink}
-      className="group relative flex h-full flex-col overflow-hidden border border-white/[0.06] bg-[#0d0d0d] transition-all duration-500 hover:border-[#c8a96e]/25"
-    >
-      {/* Image area */}
-      <div className="relative aspect-[4/3] overflow-hidden bg-[#111]">
-        {/* Placeholder gradient — swap for next/image when photos are ready */}
-        <div
-          className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-105"
-          style={{
-            background:
-              "radial-gradient(ellipse at 60% 40%, #1e1a14 0%, #111 60%, #0a0a0a 100%)",
-          }}
-        />
-        {/* Large amber number overlay */}
-        <span className="pointer-events-none absolute right-4 top-4 font-mono text-7xl font-light leading-none text-[#c8a96e]/[0.12] transition-all duration-500 group-hover:text-[#c8a96e]/[0.22] group-hover:-translate-y-1">
-          {num}
-        </span>
-        {/* Bottom-left category */}
-        <div className="absolute bottom-4 left-4">
-          <Badge variant="accent">{project.category}</Badge>
-        </div>
-        {/* Arrow reveal */}
-        <div className="absolute right-4 bottom-4 flex h-9 w-9 items-center justify-center rounded-full bg-[#c8a96e] opacity-0 transition-all duration-300 group-hover:opacity-100">
-          <ArrowRight className="h-4 w-4 text-[#0d0d0d]" />
-        </div>
-      </div>
-
-      {/* Info */}
-      <div className="flex flex-1 flex-col p-6">
-        {/* Thin amber top-border on hover */}
-        <div className="mb-4 h-px w-0 bg-[#c8a96e]/50 transition-all duration-500 group-hover:w-8" />
-        <h3 className="text-base font-light tracking-wide text-[#f0ede8] transition-colors group-hover:text-[#c8a96e]">
-          {project.title}
-        </h3>
-        <p className="mt-1 font-mono text-xs text-[#5e5c59]">
-          {project.location} &nbsp;·&nbsp; {project.year}
-        </p>
-        <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-[#9e9b97]">
-          {project.summary}
-        </p>
-      </div>
-    </Link>
-  );
-}
 
 export default function FeaturedProjects() {
   const projects = getFeaturedProjects();
   if (projects.length === 0) return null;
 
   return (
-    <section className="border-t border-white/[0.06] bg-[#0d0d0d] py-28">
+    <section id="selected-work" className="border-b border-white/[0.08] bg-[#0d0d0d] py-24 lg:py-32">
       <Container>
-        {/* Section header */}
-        <Reveal className="mb-16 flex items-end justify-between">
+        <Reveal className="mb-12 grid gap-8 border-b border-white/[0.08] pb-8 md:grid-cols-[1fr_auto] md:items-end">
           <div>
-            <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.45em] text-[#c8a96e]/60">
-              Selected Work
-            </p>
-            <h2 className="text-4xl font-extralight tracking-tight text-[#f0ede8] sm:text-5xl">
-              Featured{" "}
-              <span
-                className="font-display italic text-[#c8a96e]"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
-                projects
-              </span>
+            <p className="technical-label mb-4 text-[#c8a96e]">Selected work / Built & imagined</p>
+            <h2 className="display-condensed max-w-4xl text-[clamp(3.4rem,7vw,6.5rem)] leading-[0.82] text-[#f0ede8]">
+              Projects drawn from <span className="text-[#c8a96e]">place.</span>
             </h2>
           </div>
-          <ButtonLink
-            href="/projects"
-            variant="ghost"
-            size="sm"
-            className="hidden sm:flex"
-          >
-            All projects
-            <ArrowRight className="ml-1 h-3.5 w-3.5" />
-          </ButtonLink>
+          <Link href="/projects" className="group flex items-center gap-3 font-display text-base font-semibold uppercase tracking-[0.08em] text-[#9e9b97] transition-colors hover:text-[#c8a96e]">
+            Full archive <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+          </Link>
         </Reveal>
 
-        {/* Grid */}
-        <StaggerGroup className="grid gap-px bg-white/[0.04] sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project, i) => (
-            <StaggerItem key={project.slug} className="h-full">
-              <ProjectCard project={project} index={i} />
+        <StaggerGroup className="divide-y divide-white/[0.08] border-b border-white/[0.08]">
+          {projects.map((project, index) => (
+            <StaggerItem key={project.slug}>
+              <Link href={project.permalink} className="group relative grid min-h-48 gap-6 py-6 sm:grid-cols-[5rem_1fr_auto] sm:items-center lg:min-h-56">
+                <span className="font-display text-5xl font-semibold leading-none text-[#c8a96e]/25 transition-colors group-hover:text-[#c8a96e]">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <div className="mb-3 flex flex-wrap items-center gap-3 technical-label text-[#5e5c59]">
+                    <span>{project.category}</span><span>—</span><span>{project.location}</span><span>{project.year}</span>
+                  </div>
+                  <h3 className="display-condensed text-[clamp(2.2rem,4vw,4.4rem)] leading-[0.9] text-[#f0ede8] transition-colors group-hover:text-[#c8a96e]">
+                    {project.title}
+                  </h3>
+                  <p className="mt-3 max-w-xl text-sm leading-relaxed text-[#9e9b97]">{project.summary}</p>
+                </div>
+                <div className="hidden h-32 w-48 overflow-hidden border border-white/[0.08] bg-[#111] lg:block">
+                  <div className="drafting-grid h-full w-full transition-transform duration-700 group-hover:scale-110">
+                    <svg viewBox="0 0 190 128" className="h-full w-full fill-none stroke-[#c8a96e]/40 stroke-[0.8]">
+                      <path d="M16 102h158M32 102V55l40-28 84 32v43M32 55l40 12 84-8M72 27v75M104 64v38M132 62v40" />
+                      <circle cx="72" cy="27" r="4" />
+                    </svg>
+                  </div>
+                </div>
+                <ArrowUpRight className="absolute right-0 top-8 h-5 w-5 text-[#5e5c59] sm:static sm:justify-self-end lg:hidden" />
+              </Link>
             </StaggerItem>
           ))}
         </StaggerGroup>
-
-        <div className="mt-8 sm:hidden">
-          <ButtonLink href="/projects" variant="secondary" size="md" className="w-full">
-            View all projects
-          </ButtonLink>
-        </div>
       </Container>
     </section>
   );

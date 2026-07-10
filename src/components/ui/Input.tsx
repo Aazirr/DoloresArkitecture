@@ -35,10 +35,10 @@ export const Input = forwardRef<
   <input
     ref={ref}
     className={cn(
-      "w-full border-b bg-transparent py-3 text-sm text-[#f0ede8] placeholder-[#5e5c59] outline-none transition-colors duration-200",
+      "w-full border border-white/[0.10] bg-[#0d0d0d] px-4 py-3.5 text-sm text-[#f0ede8] placeholder-[#9e9b97] outline-none transition-colors duration-200",
       error
-        ? "border-[#c8a96e]/60"
-        : "border-white/[0.08] focus:border-[#c8a96e]/50",
+        ? "border-[#c8a96e]"
+        : "focus:border-[#c8a96e]",
       className
     )}
     {...props}
@@ -56,10 +56,10 @@ export const Textarea = forwardRef<
     ref={ref}
     rows={5}
     className={cn(
-      "w-full resize-none border-b bg-transparent py-3 text-sm text-[#f0ede8] placeholder-[#5e5c59] outline-none transition-colors duration-200",
+      "w-full resize-none border border-white/[0.10] bg-[#0d0d0d] px-4 py-3.5 text-sm text-[#f0ede8] placeholder-[#9e9b97] outline-none transition-colors duration-200",
       error
-        ? "border-[#c8a96e]/60"
-        : "border-white/[0.08] focus:border-[#c8a96e]/50",
+        ? "border-[#c8a96e]"
+        : "focus:border-[#c8a96e]",
       className
     )}
     {...props}
@@ -76,10 +76,10 @@ export const Select = forwardRef<
   <select
     ref={ref}
     className={cn(
-      "w-full cursor-pointer appearance-none border-b bg-transparent py-3 text-sm text-[#f0ede8] outline-none transition-colors duration-200",
+      "w-full cursor-pointer appearance-none border border-white/[0.10] bg-[#0d0d0d] px-4 py-3.5 text-sm text-[#f0ede8] outline-none transition-colors duration-200",
       error
-        ? "border-[#c8a96e]/60"
-        : "border-white/[0.08] focus:border-[#c8a96e]/50",
+        ? "border-[#c8a96e]"
+        : "focus:border-[#c8a96e]",
       className
     )}
     {...props}

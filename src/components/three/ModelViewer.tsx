@@ -6,32 +6,11 @@ import {
   OrbitControls,
   Stage,
   useGLTF,
-  useProgress,
-  Html,
 } from "@react-three/drei";
 import { useReducedMotion } from "motion/react";
 import { RotateCcw } from "lucide-react";
 
 // ─── Progress loader (renders inside Canvas via Html) ─────────────────────────
-
-function Loader() {
-  const { progress } = useProgress();
-  return (
-    <Html center>
-      <div className="flex flex-col items-center gap-3">
-        <div className="h-px w-28 overflow-hidden bg-white/10">
-          <div
-            className="h-full bg-[#c8a96e] transition-all duration-300"
-            style={{ width: `${Math.round(progress)}%` }}
-          />
-        </div>
-        <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-[#c8a96e]/60">
-          {Math.round(progress)}%
-        </span>
-      </div>
-    </Html>
-  );
-}
 
 // ─── GLB model primitive ──────────────────────────────────────────────────────
 

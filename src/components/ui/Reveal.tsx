@@ -25,16 +25,12 @@ export function Reveal({
   children,
   className,
   delay = 0,
-  direction = "up",
   duration = 0.6,
 }: RevealProps) {
-  const reduce = useReducedMotion();
-  const offset = reduce ? {} : OFFSET[direction];
-
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, ...offset }}
+      initial={false}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration, delay, ease: EASE }}
@@ -68,7 +64,7 @@ export function StaggerGroup({
     <motion.div
       className={className}
       variants={container}
-      initial="hidden"
+      initial={false}
       whileInView="show"
       viewport={{ once: true, margin: "-80px" }}
     >

@@ -31,13 +31,13 @@ export default function Header() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-500",
+        "fixed inset-x-0 top-0 z-50 border-b transition-all duration-500",
         scrolled || open
-          ? "border-b border-white/[0.06] bg-[#0d0d0d]/90 backdrop-blur-md"
-          : "border-b border-transparent bg-transparent"
+          ? "border-white/[0.10] bg-[#0d0d0d]/94 backdrop-blur-md"
+          : "border-white/[0.08] bg-[#0d0d0d]"
       )}
     >
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <nav className="mx-auto flex h-[4.5rem] max-w-[100rem] items-center justify-between px-5 sm:px-8 lg:px-12">
         {/* Wordmark */}
         <Link
           href="/"
@@ -49,13 +49,13 @@ export default function Header() {
           <img
             src="/brand/d.ark-wordmark2.svg"
             alt="D.ARK+"
-            className="h-7 w-auto brightness-0 invert"
+            className="h-6 w-auto brightness-0 invert"
             draggable={false}
           />
         </Link>
 
         {/* Desktop nav */}
-        <ul className="hidden items-center gap-8 md:flex">
+        <ul className="hidden h-full items-center md:flex">
           {NAV_LINKS.map(({ href, label }) => {
             const active = pathname === href || pathname.startsWith(href + "/");
             return (
@@ -63,10 +63,10 @@ export default function Header() {
                 <Link
                   href={href}
                   className={cn(
-                    "text-sm tracking-wide transition-colors",
+                    "flex h-full items-center border-x border-transparent px-5 font-display text-sm font-semibold uppercase tracking-[0.08em] transition-colors",
                     active
-                      ? "text-[#c8a96e]"
-                      : "text-[#9e9b97] hover:text-[#f0ede8]"
+                      ? "border-white/[0.08] bg-white/[0.025] text-[#c8a96e]"
+                      : "text-[#9e9b97] hover:border-white/[0.08] hover:text-[#f0ede8]"
                   )}
                 >
                   {label}
@@ -81,7 +81,7 @@ export default function Header() {
           onClick={logout}
           title="Lock site"
           aria-label="Log out"
-          className="hidden items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.35em] text-[#5e5c59] transition-colors hover:text-[#c8a96e] md:flex"
+          className="hidden items-center gap-1.5 font-mono text-[8px] uppercase tracking-[0.28em] text-[#5e5c59] transition-colors hover:text-[#c8a96e] md:flex"
         >
           <LogOut className="h-3 w-3" />
           Lock

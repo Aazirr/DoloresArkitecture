@@ -54,15 +54,15 @@ export default function AboutPage() {
   return (
     <>
       {/* Hero */}
-      <section className="border-b border-white/[0.06] pb-24 pt-32">
+      <section className="drafting-grid border-b border-white/[0.08] pb-24 pt-24">
         <Container>
           <Badge variant="accent" className="mb-6">
             About the studio
           </Badge>
-          <h1 className="max-w-2xl text-5xl font-extralight leading-[1.1] tracking-tight text-[#f0ede8] sm:text-6xl">
+          <h1 className="display-condensed max-w-4xl text-[clamp(4rem,8vw,7.5rem)] leading-[0.8] text-[#f0ede8]">
             Architecture shaped
             <br />
-            <span className="italic text-[#c8a96e]">by intention.</span>
+            <span className="text-[#c8a96e]">by intention.</span>
           </h1>
           <p className="mt-8 max-w-xl text-base leading-relaxed text-[#9e9b97]">
             D.ARK+ (Dolores Arkitecture) is an architecture and interior design
@@ -80,7 +80,7 @@ export default function AboutPage() {
             <Badge variant="accent" className="mb-4">
               Our story
             </Badge>
-            <h2 className="text-3xl font-extralight tracking-tight text-[#f0ede8]">
+            <h2 className="display-condensed text-5xl leading-[0.9] text-[#f0ede8]">
               Born from a love of making
             </h2>
             <p className="mt-4 text-sm text-[#5e5c59]">Est. 2013 · Cebu, Philippines</p>
@@ -120,15 +120,15 @@ export default function AboutPage() {
       </Section>
 
       {/* Values */}
-      <section className="border-t border-white/[0.06] py-24">
+      <section className="border-t border-white/[0.08] py-24">
         <Container>
           <Badge variant="accent" className="mb-12">
             How we work
           </Badge>
           <div className="grid gap-px bg-white/[0.06] sm:grid-cols-3">
             {VALUES.map(({ heading, body }) => (
-              <div key={heading} className="bg-[#0d0d0d] p-8">
-                <h3 className="mb-3 text-lg font-light text-[#c8a96e]">
+              <div key={heading} className="bg-[#0d0d0d] p-8 transition-colors hover:bg-[#c8a96e] hover:text-[#0d0d0d]">
+                <h3 className="display-condensed mb-3 text-3xl text-[#c8a96e] group-hover:text-[#0d0d0d]">
                   {heading}
                 </h3>
                 <p className="text-sm leading-relaxed text-[#9e9b97]">{body}</p>
@@ -144,7 +144,7 @@ export default function AboutPage() {
           <Badge variant="accent" className="mb-4">
             The team
           </Badge>
-          <h2 className="text-3xl font-extralight tracking-tight text-[#f0ede8]">
+          <h2 className="display-condensed text-5xl leading-[0.9] text-[#f0ede8]">
             The people behind the work
           </h2>
         </div>
@@ -152,7 +152,7 @@ export default function AboutPage() {
           {TEAM.map(({ name, title, initial }) => (
             <div key={name} className="flex flex-col gap-5 bg-[#161616] p-8">
               {/* Avatar placeholder — replace src with real photo when available */}
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#2a2a2a] text-sm font-light tracking-wide text-[#c8a96e]">
+              <div className="flex h-16 w-16 items-center justify-center border border-[#c8a96e]/30 bg-[#0d0d0d] font-display text-xl font-semibold tracking-wide text-[#c8a96e]">
                 {initial}
               </div>
               <div>
@@ -167,7 +167,7 @@ export default function AboutPage() {
       {/* CTA */}
       <section className="border-t border-white/[0.06] py-24">
         <Container className="flex flex-col items-center text-center">
-          <h2 className="text-3xl font-extralight tracking-tight text-[#f0ede8]">
+          <h2 className="display-condensed text-5xl leading-[0.9] text-[#f0ede8]">
             Work with us
           </h2>
           <p className="mt-4 max-w-md text-base leading-relaxed text-[#9e9b97]">

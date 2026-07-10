@@ -39,25 +39,22 @@ export default function ContactPage() {
   return (
     <>
       {/* Header */}
-      <section className="border-b border-white/[0.06] pb-20 pt-36">
+      <section className="drafting-grid border-b border-white/[0.08] pb-20 pt-24">
         <Container>
           <Reveal>
             <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.45em] text-[#c8a96e]/60">
               Get in touch
             </p>
-            <h1 className="max-w-2xl text-5xl font-extralight leading-[1.0] tracking-tight text-[#f0ede8] sm:text-6xl">
-              Let's talk about
+            <h1 className="display-condensed max-w-4xl text-[clamp(4rem,8vw,7.5rem)] leading-[0.8] text-[#f0ede8]">
+              Let&apos;s talk about
               <br />
-              <span
-                className="font-display italic text-[#c8a96e]"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
+              <span className="text-[#c8a96e]">
                 your project.
               </span>
             </h1>
             <p className="mt-6 max-w-lg text-sm leading-relaxed text-[#9e9b97]">
               We take on a small number of projects each year to ensure every
-              client gets our full attention. Share your brief and we'll get
+              client gets our full attention. Share your brief and we&apos;ll get
               back to you within two business days.
             </p>
           </Reveal>

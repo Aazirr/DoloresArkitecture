@@ -31,7 +31,6 @@ function imgFilter(amber: boolean) {
 }
 
 const GLOW_IDLE  = glowFilter(8,  false);
-const GLOW_PEAK  = glowFilter(16, false);
 const GLOW_HOVER = glowFilter(14, true);
 const IMG_IDLE   = imgFilter(false);
 const IMG_HOVER  = imgFilter(true);

@@ -58,7 +58,7 @@ export default function ContactForm() {
             Message received.
           </h3>
           <p className="mt-2 text-sm leading-relaxed text-[#9e9b97]">
-            Thank you for reaching out. We'll get back to you within two
+            Thank you for reaching out. We&apos;ll get back to you within two
             business days.
           </p>
         </div>

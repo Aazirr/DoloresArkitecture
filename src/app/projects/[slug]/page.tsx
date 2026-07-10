@@ -41,7 +41,7 @@ export default async function ProjectDetailPage({ params }: Props) {
   return (
     <>
       {/* Header */}
-      <section className="border-b border-white/[0.06] pb-16 pt-32">
+      <section className="drafting-grid border-b border-white/[0.08] pb-16 pt-24">
         <Container>
           <Link
             href="/projects"
@@ -56,7 +56,7 @@ export default async function ProjectDetailPage({ params }: Props) {
             <Badge variant="default">{project.status}</Badge>
           </div>
 
-          <h1 className="mt-4 max-w-2xl text-4xl font-extralight leading-[1.05] tracking-tight text-[#f0ede8] sm:text-5xl">
+          <h1 className="display-condensed mt-4 max-w-4xl text-[clamp(4rem,8vw,7.5rem)] leading-[0.82] text-[#f0ede8]">
             {project.title}
           </h1>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-[#9e9b97]">
@@ -168,11 +168,11 @@ export default async function ProjectDetailPage({ params }: Props) {
       {/* CTA */}
       <section className="border-t border-white/[0.06] bg-[#161616] py-20">
         <Container className="flex flex-col items-center text-center">
-          <h2 className="text-2xl font-extralight tracking-tight text-[#f0ede8]">
+          <h2 className="display-condensed text-4xl leading-none text-[#f0ede8]">
             Interested in working together?
           </h2>
           <p className="mt-3 max-w-sm text-sm leading-relaxed text-[#9e9b97]">
-            Tell us about your project and we'll get back to you within two
+            Tell us about your project and we&apos;ll get back to you within two
             business days.
           </p>
           <ButtonLink
